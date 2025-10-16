@@ -5,6 +5,7 @@ import './index.css'
 import './i18n'
 import { useTranslation } from 'react-i18next'
 import { supportedLanguages } from './i18n'
+import { HashRouter } from 'react-router-dom'
 
 function Header() {
 	const { i18n, t } = useTranslation();
@@ -53,9 +54,11 @@ function Footer() {
 function Root() {
 	return (
 		<React.StrictMode>
-			<Header />
-			<App />
-			<Footer />
+			<HashRouter>
+				<Header />
+				<App />
+				<Footer />
+			</HashRouter>
 		</React.StrictMode>
 	)
 }
