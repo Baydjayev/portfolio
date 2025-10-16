@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { FormEvent, useState } from 'react';
+import type { FormEvent } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function Contact() {
