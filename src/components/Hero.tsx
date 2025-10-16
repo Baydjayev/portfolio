@@ -45,14 +45,15 @@ export default function Hero() {
 
 	return (
 		<section className="relative overflow-hidden bg-background-light dark:bg-background-dark">
-			<div className="absolute inset-0 -z-10 opacity-60 bg-sunset-gradient" />
+			{/* Softer gradient in light mode, stronger in dark */}
+			<div className="absolute inset-0 -z-10 opacity-20 dark:opacity-60 bg-sunset-gradient" />
 			<div className="mx-auto max-w-7xl px-4 py-20 md:py-28">
 				<motion.h1
 					initial={{ opacity: 0, y: 20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.6 }}
-					className="text-4xl md:text-6xl font-extrabold text-white drop-shadow"
+					className="text-4xl md:text-6xl font-extrabold text-black dark:text-white drop-shadow"
 				>
 					Baydjayev Mulkomon
 				</motion.h1>
@@ -61,17 +62,17 @@ export default function Hero() {
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ delay: 0.1, duration: 0.6 }}
-					className="mt-4 text-lg md:text-2xl text-white/90"
+					className="mt-4 text-lg md:text-2xl text-black/80 dark:text-white/90"
 				>
 					{typed}
 					<span className="animate-pulse">_</span>
 				</motion.p>
 
 				<div className="mt-10 flex flex-wrap gap-4">
-					<a href="#projects" className="rounded-xl px-6 py-3 bg-white text-background-dark font-semibold shadow-glass hover:-translate-y-0.5 transition">
+					<a href="#projects" className="rounded-xl px-6 py-3 bg-background-dark text-white font-semibold shadow-glass hover:-translate-y-0.5 transition">
 						View Projects
 					</a>
-					<a href="#contact" className="rounded-xl px-6 py-3 bg-background-dark text-white font-semibold shadow-glass hover:-translate-y-0.5 transition">
+					<a href="#contact" className="rounded-xl px-6 py-3 bg-white text-background-dark font-semibold shadow-glass hover:-translate-y-0.5 transition">
 						Contact Me
 					</a>
 				</div>
@@ -84,7 +85,7 @@ export default function Hero() {
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
 							transition={{ delay: i * 0.1, duration: 0.5 }}
-							className="rounded-2xl bg-[rgba(255,255,255,0.12)] dark:bg-[rgba(37,42,58,0.24)] backdrop-blur-md shadow-glass p-6 text-center text-white/90"
+							className="rounded-2xl bg-[rgba(255,255,255,0.7)] dark:bg-[rgba(37,42,58,0.24)] backdrop-blur-md shadow-glass p-6 text-center text-black dark:text-white/90"
 						>
 							<div className="text-3xl md:text-4xl font-extrabold"><Counter to={s.value} />+</div>
 							<div className="mt-1 text-sm md:text-base">{s.label}</div>
