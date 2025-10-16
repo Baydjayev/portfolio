@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+// i18n is initialized in i18n.ts; explicit import not needed as side-effect
+// but keep type-safety by importing the module to ensure bundling
 import './i18n'
 import { useTranslation } from 'react-i18next'
 import { supportedLanguages } from './i18n'
