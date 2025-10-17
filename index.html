@@ -1,16 +1,3470 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <meta name="theme-color" content="#FF8C42" />
-    <title>Baydjayev Mulkomon — Portfolio</title>
-  </head>
-  <body class="antialiased bg-background-light dark:bg-background-dark text-black dark:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Baydjayev Mulkomon - Backend Developer. Telegram botlar (Aiogram) va saytlar yaratuvchisi.">
+    <title>Baydjayev Mulkomon - Backend Developer Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* GitHub Light Theme Colors */
+            --primary: #0969da;
+            --secondary: #0550ae;
+            --accent: #1f883d;
+            --success: #1a7f37;
+            --warning: #9a6700;
+            --error: #d1242f;
+            --bg-dark: #ffffff;
+            --bg-darker: #f6f8fa;
+            --card-bg: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --text-primary: #24292f;
+            --text-secondary: #656d76;
+            --text-muted: #8c959f;
+            --border: #d0d7de;
+            --shadow: rgba(31, 35, 40, 0.12);
+            --shadow-lg: rgba(31, 35, 40, 0.15);
+            --gradient-primary: linear-gradient(135deg, #0969da 0%, #0550ae 100%);
+            --gradient-secondary: linear-gradient(135deg, #1f883d 0%, #1a7f37 100%);
+            --gradient-accent: linear-gradient(135deg, #0969da 0%, #1f883d 100%);
+        }
+
+        [data-theme="dark"] {
+            /* GitHub Dark Theme Colors */
+            --primary: #58a6ff;
+            --secondary: #1f6feb;
+            --accent: #3fb950;
+            --success: #238636;
+            --warning: #d29922;
+            --error: #f85149;
+            --bg-dark: #0d1117;
+            --bg-darker: #010409;
+            --card-bg: #161b22;
+            --glass-bg: rgba(22, 27, 34, 0.8);
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --border: #30363d;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-lg: rgba(0, 0, 0, 0.4);
+            --gradient-primary: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%);
+            --gradient-secondary: linear-gradient(135deg, #3fb950 0%, #238636 100%);
+            --gradient-accent: linear-gradient(135deg, #58a6ff 0%, #3fb950 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+        }
+
+        /* GitHub-style Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-darker);
+            z-index: -2;
+        }
+
+        .bg-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(9, 105, 218, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(31, 136, 61, 0.03) 0%, transparent 50%);
+            animation: subtleGlow 20s ease infinite alternate;
+        }
+
+        [data-theme="dark"] .bg-gradient::before {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(88, 166, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(63, 185, 80, 0.05) 0%, transparent 50%);
+        }
+
+        @keyframes subtleGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+
+        /* GitHub-style Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 1rem 5%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 0 var(--shadow);
+        }
+
+        nav.scrolled {
+            background: var(--card-bg);
+            box-shadow: 0 1px 0 var(--shadow), 0 8px 24px var(--shadow);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: -0.02em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .logo:hover {
+            color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+
+        .nav-menu a:hover {
+            color: var(--text-primary);
+            background: var(--bg-darker);
+        }
+
+        .nav-menu a.active {
+            color: var(--primary);
+            background: var(--bg-darker);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--bg-darker);
+            border-color: var(--primary);
+        }
+
+        /* GitHub-style Dark Mode Toggle - Circular */
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-left: 1rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-darker);
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px var(--shadow-lg);
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: relative;
+            margin-left: 1rem;
+        }
+
+        .language-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px var(--shadow);
+        }
+
+        .language-toggle:hover {
+            background: var(--bg-darker);
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px var(--shadow-lg);
+        }
+
+        .language-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px var(--shadow-lg);
+            min-width: 150px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0.5rem;
+        }
+
+        .language-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .language-option {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+        }
+
+        .language-option:last-child {
+            border-bottom: none;
+        }
+
+        .language-option:hover {
+            background: var(--bg-darker);
+            color: var(--primary);
+        }
+
+        .language-option.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .language-flag {
+            width: 20px;
+            height: 14px;
+            border-radius: 3px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .language-flag img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .language-name {
+            font-size: 0.9rem;
+        }
+
+        /* GitHub-style Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            position: relative;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+            animation: expandLine 1.5s ease 0.5s both;
+        }
+
+        @keyframes expandLine {
+            0% { width: 0; }
+            100% { width: 100px; }
+        }
+
+        .hero .subtitle {
+            font-size: 2.2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero .mentor-title {
+            font-size: 1.6rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero .location {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        /* Language-specific text handling */
+        .hero-description {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 900px;
+            margin: 0 auto 3.5rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.8s both;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Ensure proper text flow for different languages */
+        [lang="uz"] .hero-description,
+        [lang="tr"] .hero-description,
+        [lang="ru"] .hero-description {
+            line-height: 1.9;
+        }
+
+        /* About section text improvements */
+        .about-intro p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        [lang="uz"] .about-intro p,
+        [lang="tr"] .about-intro p,
+        [lang="ru"] .about-intro p {
+            line-height: 1.9;
+        }
+
+        /* Navigation text handling */
+        .nav-menu a {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 120px;
+        }
+
+        /* Language dropdown improvements */
+        .language-dropdown {
+            min-width: 160px;
+        }
+
+        .language-name {
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        /* Responsive text adjustments */
+        @media (max-width: 768px) {
+            .hero-description {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+            
+            .about-intro p {
+                font-size: 1rem;
+                padding: 0 0.5rem;
+            }
+            
+            .nav-menu a {
+                max-width: 100px;
+                font-size: 0.9rem;
+            }
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 180px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 1px 3px var(--shadow);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 1.2s both;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: 1px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-darker);
+            border-color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .tech-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 1.4s both;
+        }
+        
+        .tech-icon {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-width: 120px;
+            box-shadow: 0 1px 3px var(--shadow);
+        }
+
+        .tech-icon:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px var(--shadow-lg);
+        }
+
+        .tech-icon i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .tech-icon:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        /* About section uchun maxsus padding */
+        #about {
+            padding-top: 0rem;  /* Yuqoridan kamroq bo'sh joy */
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--text-primary);
+            position: relative;
+            letter-spacing: -0.02em;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .about-intro {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 1px 3px var(--shadow);
+        }
+
+        .about-intro::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .education-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .education-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .education-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .education-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .education-card:hover::after {
+            opacity: 0.03;
+        }
+
+        .education-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+        }
+
+        .education-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .education-header i {
+            font-size: 3rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-right: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .education-card:hover .education-header i {
+            transform: scale(1.1);
+        }
+
+        .education-header h3 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            font-weight: 800;
+            letter-spacing: -0.01em;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .card:hover::after {
+            opacity: 0.03;
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-header i {
+            font-size: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-right: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-header i {
+            transform: scale(1.1);
+        }
+
+        .card-header h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+        }
+
+        .education-item {
+            margin-bottom: 2rem;
+        }
+
+        .education-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .education-degree {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.01em;
+        }
+
+        .education-school {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .education-date {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+.education-date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    color: var(--primary);
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.education-date-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+}
+
+.education-date-badge i {
+    font-size: 1.2rem;
+}
+
+.gpa-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--gradient-primary);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    font-weight: 700;
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    transition: all 0.3s ease;
+}
+
+.gpa-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+}
+
+.gpa-badge i {
+    font-size: 1.2rem;
+}
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tag {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .tag:hover::before {
+            left: 100%;
+        }
+
+        .tag:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Modern Experience Section */
+        .timeline {
+            position: relative;
+            padding-left: 4rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -4.5rem;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            border: 6px solid var(--bg-dark);
+            box-shadow: 0 0 0 6px var(--primary), 0 0 20px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover::before {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 6px var(--primary), 0 0 30px rgba(99, 102, 241, 0.6);
+        }
+
+        .timeline-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .timeline-content:hover::after {
+            opacity: 0.03;
+        }
+
+        .timeline-content:hover {
+            transform: translateX(15px) translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+        }
+
+        .timeline-company {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .timeline-company:hover {
+            transform: translateX(8px) scale(1.05);
+        }
+
+        .timeline-date {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-date:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+        }
+
+        .timeline-content ul {
+            list-style: none;
+        }
+
+        .timeline-content li {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .timeline-content li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+/* Projects Section */
+.projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.project-card {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background: var(--card-bg);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(59, 130, 246, 0.3);
+    border-color: var(--primary);
+}
+
+.project-image {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    min-width: 200px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.project-content {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.project-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    flex-grow: 1;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.project-tag {
+    background: var(--bg-dark);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+    font-weight: 600;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.project-link {
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.project-link-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+}
+
+.project-link-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+}
+
+.project-link-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.project-link-secondary:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Mobile Responsive for Projects */
+@media (max-width: 768px) {
+    .project-card {
+        flex-direction: column;
+    }
+    
+    .project-image {
+        width: 100%;
+        min-height: 150px;
+    }
+    
+    .project-content {
+        padding: 1.5rem;
+    }
+    
+    .project-title {
+        font-size: 1.3rem;
+    }
+}
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .skill-category:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.25);
+            border-color: var(--primary);
+        }
+
+        .skill-category h3 {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .skill-category h3::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .skill-tags-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-tag {
+            background: var(--bg-dark);
+            color: var(--text-secondary);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .skill-tag:hover::before {
+            left: 100%;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Certifications */
+.cert-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.cert-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    cursor: pointer;
+}
+
+.cert-card:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+}
+
+
+.cert-card i {
+    font-size: 3rem;
+    color: var(--primary);
+    min-width: 60px;
+}
+
+.cert-info {
+    flex: 1;
+}
+
+.cert-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.cert-provider {
+    color: var(--primary);
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.cert-date {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.cert-link-icon {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    transition: all 0.3s;
+}
+
+.cert-card:hover .cert-link-icon {
+    color: var(--primary);
+    transform: translateX(5px);
+}
+
+        /* Languages */
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .language-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .language-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .language-flag {
+            width: 48px;
+            height: 32px;
+            margin: 0 auto 1rem auto;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+        }
+
+        .language-flag img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .language-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .language-level {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+/* Contact Section */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-form-section {
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+        .contact-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .contact-card:hover::before {
+            left: 100%;
+        }
+
+        .contact-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+            border-color: var(--primary);
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        /* Contact Icons - Original Brand Colors */
+        .contact-card a[href*="linkedin"] i,
+        .contact-card a[href*="github"] i,
+        .contact-card a[href*="mailto"] i,
+        .contact-card a[href*="tel"] i,
+        .contact-card a[href*="telegram"] i {
+            color: var(--primary);
+        }
+
+        /* LinkedIn - Original Blue */
+        .contact-card a[href*="linkedin"] i {
+            color: #0077b5;
+        }
+
+        .contact-card a[href*="linkedin"]:hover i {
+            color: #005885;
+        }
+
+        /* GitHub - Original Black */
+        .contact-card a[href*="github"] i {
+            color: #000000;
+        }
+
+        .contact-card a[href*="github"]:hover i {
+            color: #333333;
+        }
+
+        /* Email - Gmail Red */
+        .contact-card a[href*="mailto"] i {
+            color: #ea4335;
+        }
+
+        .contact-card a[href*="mailto"]:hover i {
+            color: #d33b2c;
+        }
+
+        /* Phone - WhatsApp Green */
+        .contact-card a[href*="tel"] i {
+            color: #25d366;
+        }
+
+        .contact-card a[href*="tel"]:hover i {
+            color: #1da851;
+        }
+
+        /* Telegram - Original Blue */
+        .contact-card a[href*="telegram"] i {
+            color: #229ED9;
+        }
+
+        .contact-card a[href*="telegram"]:hover i {
+            color: #1e8bc4;
+        }
+
+        .contact-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-card a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            background: var(--bg-dark);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group input:hover,
+        .form-group textarea:hover {
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .form-submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .form-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .form-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .form-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social a {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-dark);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .footer-social a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* GitHub - Original Black */
+        .footer-social a[href*="github"] {
+            color: #000000;
+        }
+
+        .footer-social a[href*="github"]:hover {
+            background: #000000;
+            color: white;
+        }
+
+        /* LinkedIn - Original Blue */
+        .footer-social a[href*="linkedin"] {
+            color: #0077b5;
+        }
+
+        .footer-social a[href*="linkedin"]:hover {
+            background: #0077b5;
+            color: white;
+        }
+
+        /* Email - Gmail Red */
+        .footer-social a[href*="mailto"] {
+            color: #ea4335;
+        }
+
+        .footer-social a[href*="mailto"]:hover {
+            background: #ea4335;
+            color: white;
+        }
+
+        /* Phone - Green */
+        .footer-social a[href*="tel"] {
+            color: #25d366;
+        }
+
+        .footer-social a[href*="tel"]:hover {
+            background: #25d366;
+            color: white;
+        }
+
+        /* Telegram - Original Blue */
+        .footer-social a[href*="telegram"] {
+            color: #229ED9;
+        }
+
+        .footer-social a[href*="telegram"]:hover {
+            background: #229ED9;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.5rem;
+            }
+
+            .hero .mentor-title {
+                font-size: 1.2rem;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--card-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: start;
+                padding: 2rem;
+                transition: left 0.3s;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .about-grid,
+            .projects-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .education-grid {
+                flex-direction: column;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo" onclick="scrollToSection('home')">Baydjayev Mulkomon</div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" onclick="scrollToSection('home')">Home</a></li>
+                <li><a href="#about" onclick="scrollToSection('about')">About</a></li>
+                <li><a href="#experience" onclick="scrollToSection('experience')">Experience</a></li>
+                <li><a href="#projects" onclick="scrollToSection('projects')">Projects</a></li>
+                <li><a href="#skills" onclick="scrollToSection('skills')">Skills</a></li>
+                
+                <li><a href="#contact" onclick="scrollToSection('contact')">Contact</a></li>
+            </ul>
+            <div class="language-switcher">
+                <button class="language-toggle" onclick="toggleLanguageDropdown()" title="Change Language">
+                    <span id="current-lang">EN</span>
+                </button>
+                <div class="language-dropdown" id="languageDropdown">
+
+                    <div class="language-option" onclick="changeLanguage('en')" data-lang="en">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w320/gb.png" alt="English flag">
+                        </div>
+                        <span class="language-name">English</span>
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('ru')" data-lang="ru">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w320/ru.png" alt="Russia flag">
+                        </div>
+                        <span class="language-name">Русский</span>
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('tk')" data-lang="tk">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w320/tm.png" alt="Turkmenistan flag">
+                        </div>
+                        <span class="language-name">Türkmen</span>
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('uz')" data-lang="uz">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w320/uz.png" alt="Uzbekistan flag">
+                        </div>
+                        <span class="language-name">O'zbek</span>
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('tr')" data-lang="tr">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w320/tr.png" alt="Turkey flag">
+                        </div>
+                        <span class="language-name">Türkçe</span>
+                    </div>
+
+                </div>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Baydjayev Mulkomon</h1>
+            <div class="subtitle">Backend Developer & Telegram Bot Specialist</div>
+            <p class="hero-description">
+                Aiogram yordamida Telegram botlar va zamonaviy, tezkor veb-saytlar yarataman. Hozirda o'qishni davom ettiryapman va backend yo'nalishida rivojlanmoqdaman. Toza kod, ishonchli arxitektura va foydalanuvchi uchun qulay tajriba — ustuvorligim.
+            </p>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">1+</div>
+                    <div class="stat-label">Years Engineering</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Worked in Companies</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Production Systems</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Engineers Mentored</div>
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary" onclick="scrollToSection('projects')">View My Work</a>
+                <a href="#contact" class="btn btn-secondary" onclick="scrollToSection('contact')">Let's Connect</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-intro">
+                <p style="margin-bottom:0.8rem; font-size:1.05rem; color:var(--text-secondary); line-height:1.8;">
+                    Men Backend Developer va Telegram Bot mutaxassisiman. Aiogram yordamida botlar hamda foydalanuvchi uchun qulay, tezkor veb-saytlar ishlab chiqaman.
+                </p>
+                <p style="margin-bottom:0.8rem; font-size:1.05rem; color:var(--text-secondary); line-height:1.8;">
+                    1+ yil tajribaga egaman. Yo'nalishlarim: Telegram botlar (Aiogram), Backend Development, Web Development. Amaliy loyihalar orqali doimiy ravishda rivojlanaman.
+                </p>
+                <p style="margin-bottom:0; font-size:1.05rem; color:var(--text-secondary); line-height:1.8;">
+                    Hamkorlik va takliflar uchun bog'laning. O'rgatgan talabalarim: 10+; yakunlangan loyihalar: 8+.
+                </p>
+                <p style="margin-top:0.8rem; font-size:1.05rem; color:var(--text-secondary); line-height:1.8;">
+                    IT mentorum — <strong style="color: var(--primary);">Nodir Odilov</strong> — dasturlash sohasiga kirishimga sababchi bo‘lgan, Pythonni amaliy qo‘llash bo‘yicha menga mustahkam poydevor bo‘lgan ustozim.
+                </p>
+            </div>
+
+            <div class="education-grid">
+    <!-- Master's Degree -->
+    <div class="education-card">
+        <div class="education-header">
+            <i class="fas fa-user-graduate"></i>
+            <h3>IT Academy</h3>
+        </div>
+        <div class="education-item">
+            <div class="education-degree">Talaba (Al-Khorezmi Vorislari IT Academy)</div>
+            <div class="education-school">Al-Khorezmi Vorislari IT Academy</div>
+            <div class="education-date-badge">
+                <i class="fas fa-calendar-alt"></i> Sep 2024 — Present
+            </div>
+            <p style="color: var(--text-secondary); margin-top: 1rem; line-height: 1.8;">
+                <strong style="color: var(--primary);">Focus:</strong> Backend Development & Telegram Bots (Aiogram)
+            </p>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.8;">
+                <strong style="color: var(--primary);">Mentor:</strong> Nodir Odilov — dasturlash sohasiga kirishimga sababchi bo‘lgan, Pythonni amaliy qo‘llash bo‘yicha menga mustahkam poydevor bo'lgan ustozim.
+            </p>
+            
+        </div>
+    </div>
+
+    <!-- Bachelor's Degree -->
+    <div class="education-card">
+        <div class="education-header">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Polytechnic Institute</h3>
+        </div>
+        <div class="education-item">
+            <div class="education-degree">Talaba (Polytechnic Institute)</div>
+            <div class="education-school">Polytechnic Institute</div>
+            <div class="education-date-badge">
+                <i class="fas fa-calendar-alt"></i> Sep 2025 — Present
+            </div>
+            <div class="gpa-badge" style="margin-top: 1rem;">
+                <i class="fas fa-trophy"></i> GPA: —
+            </div>
+            <p style="color: var(--text-secondary); margin-top: 1rem; line-height: 1.8;">
+                <strong style="color: var(--primary);">Key Notes:</strong> Yo'nalish: Computer Science / Programming. Secondary School: Sep 2016 — 2025.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Soft Skills - Separate Card Below -->
+<div class="card" style="margin-top: 2rem;">
+    <div class="card-header">
+        <i class="fas fa-award"></i>
+        <h3>Soft Skills</h3>
+    </div>
+    <div class="skill-tags">
+        <span class="tag">Leadership</span>
+        <span class="tag">Teamwork</span>
+        <span class="tag">Problem Solving</span>
+        <span class="tag">Time Management</span>
+        <span class="tag">Communication</span>
+    </div>
+</div>
+
+            <div class="card" style="margin-top: 2rem;">
+                <div class="card-header">
+                    <i class="fas fa-globe"></i>
+                    <h3>Languages</h3>
+                </div>
+                <div class="languages-grid">
+                    <div class="language-card">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w320/tm.png" alt="Turkmenistan flag">
+                        </div>
+                        <div class="language-name">Turkmen</div>
+                        <div class="language-level">Native</div>
+                    </div>
+                    <div class="language-card">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w320/uz.png" alt="Uzbekistan flag">
+                        </div>
+                        <div class="language-name">Uzbek</div>
+                        <div class="language-level">Fluent</div>
+                    </div>
+                    <div class="language-card">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w320/ru.png" alt="Russia flag">
+                        </div>
+                        <div class="language-name">Russian</div>
+                        <div class="language-level">Advanced</div>
+                    </div>
+                    <div class="language-card">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w320/tr.png" alt="Turkey flag">
+                        </div>
+                        <div class="language-name">Turkish</div>
+                        <div class="language-level">Fluent</div>
+                    </div>
+                    <div class="language-card">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w320/gb.png" alt="United Kingdom flag">
+                        </div>
+                        <div class="language-name">English</div>
+                        <div class="language-level">Advanced</div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-title">Tutor / Mentor</div>
+                            <a href="#" target="_blank" class="timeline-company">Freelance</a>
+                        </div>
+                        <div class="timeline-date">2024 — Present</div>
+                    </div>
+                    <ul>
+                        <li>Telegram botlar va veb-ishlab chiqish bo'yicha darslar berdim</li>
+                        <li>10+ o'quvchiga amaliy yo'riqnoma va loyihalar orqali yordam berdim</li>
+                        <li>Asosiy mavzular: Aiogram, Python asoslari, veb-front & back</li>
+                        <li>Portfel uchun kichik loyihalar tayyorlashga ko'maklashdim</li>
+                        <li>Doimiy ravishda o'quvchilar bilan aloqada bo'ldim</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-title">Talaba</div>
+                            <a href="#" target="_blank" class="timeline-company">Al-Xorazmiy Vorislari</a>
+                        </div>
+                        <div class="timeline-date">Sep 2024 — Present</div>
+                    </div>
+                    <ul>
+                        <li>Algoritmlar, Python va Aiogram bo'yicha tahsil olaman</li>
+                        <li>Kichik Telegram bot va veb-loyihalar ustida ishlayman</li>
+                        <li>Amaliy topshiriqlar orqali tajribani oshiryapman</li>
+                        <li>Jamoaviy ishlash va prezentatsiya ko'nikmalarini rivojlantiryapman</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-title">Talaba</div>
+                            <a href="#" target="_blank" class="timeline-company">Politexnikum</a>
+                        </div>
+                        <div class="timeline-date">Sep 2025 — Present</div>
+                    </div>
+                    <ul>
+                        <li>IT asoslari va dasturlash fanlarini o'rganmoqdaman</li>
+                        <li>Amaliy mashg'ulotlar: saytlar va kichik servislar</li>
+                        <li>Jamoa bilan ishlash ko'nikmalarini shakllantirish</li>
+                        <li>Ta'lim davom etmoqda</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-title">O'quvchi</div>
+                            <a href="#" target="_blank" class="timeline-company">Maktab</a>
+                        </div>
+                        <div class="timeline-date">Sep 2016 — 2025</div>
+                    </div>
+                    <ul>
+                        <li>Umumiy ta'lim: matematika, adabiyot, tabiiy va ijtimoiy fanlar</li>
+                        <li>Maktab tadbirlari va sinf loyihalarida faol ishtirok</li>
+                        <li>Jamoaviy ish, intizom va mustaqil fikrlash ko‘nikmalarini shakllantirish</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="projects">
+    <h2 class="section-title">Projects</h2>
+
+    <div class="projects-grid">
+
+        <!-- My Agent -->
+        <div class="project-card">
+            <div class="project-image">
+                <i class="fas fa-globe"></i>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">Portfolio Website</h3>
+                <p class="project-description">
+                    Shaxsiy portfel sayti: loyihalarim, ko'nikmalarim va kontaktlar jamlangan. Toza dizayn, moslashuvchan va tezkor sahifalar.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">HTML</span>
+                    <span class="project-tag">CSS</span>
+                    <span class="project-tag">JavaScript</span>
+                    <span class="project-tag">Portfolio</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Baydjayev/Baydjayev.github.io" class="project-link project-link-primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Platform
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ForwardBlockerBot -->
+        <div class="project-card">
+            <div class="project-image">
+                <i class="fas fa-ban"></i>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">QR Code Generator</h3>
+                <p class="project-description">
+                    Brauzerda tez va sodda QR kod yaratish ilovasi. Matn yoki URL kiriting va darhol QR kod oling.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">JavaScript</span>
+                    <span class="project-tag">QR</span>
+                    <span class="project-tag">Frontend</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://baydjayev.github.io/qr-code-generator/" class="project-link project-link-primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ShutupBot -->
+        <div class="project-card">
+            <div class="project-image">
+                <i class="fas fa-comment-slash"></i>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">Programming Quiz</h3>
+                <p class="project-description">
+                    Dasturlashga oid savol-javobli mini-quiz. Foydalanuvchi uchun qulay interfeys va tezkor natijalar.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">HTML</span>
+                    <span class="project-tag">CSS</span>
+                    <span class="project-tag">JavaScript</span>
+                    <span class="project-tag">Quiz</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://baydjayev.github.io/programming-quiz/" class="project-link project-link-primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Traffic Detector -->
+        <div class="project-card">
+            <div class="project-image">
+                <i class="fas fa-traffic-light"></i>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">Creative Calculator</h3>
+                <p class="project-description">
+                    Foydali va chiroyli kalkulyator ilovasi. Oddiy arifmetik amal va dizayn uyg'unligi.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">HTML</span>
+                    <span class="project-tag">CSS</span>
+                    <span class="project-tag">JavaScript</span>
+                    <span class="project-tag">Calculator</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://baydjayev.github.io/creative-calculator/" class="project-link project-link-primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Uzbek Latin/Cyrillic Converter -->
+        <div class="project-card">
+            <div class="project-image">
+                <i class="fas fa-language"></i>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">Uzbek Latin/Cyrillic Converter</h3>
+                <p class="project-description">
+                    Lotin va Kirill yozuvlari o‘rtasida tezkor konvertatsiya. Minimal dizayn va darhol natija.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">JavaScript</span>
+                    <span class="project-tag">Frontend</span>
+                    <span class="project-tag">Tools</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://baydjayev.github.io/uz-latin-cyrillic/" class="project-link project-link-primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shutup Bot -->
+        <div class="project-card">
+            <div class="project-image">
+                <i class="fas fa-volume-mute"></i>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">Shutup Bot</h3>
+                <p class="project-description">
+                    Telegram guruhlari uchun oddiy moderator bot. Taqiqlangan so‘zlarni aniqlab, chatni tartibda ushlaydi.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">Aiogram</span>
+                    <span class="project-tag">Telegram</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Baydjayev/shut-up" class="project-link project-link-secondary" target="_blank">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Channel Manager -->
+        <div class="project-card">
+            <div class="project-image">
+                <i class="fas fa-bullhorn"></i>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">Channel Manager</h3>
+                <p class="project-description">
+                    Telegram kanal postlarini boshqarish va avtomatlashtirish uchun bot. Rejalashtirish va qulay boshqaruv.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">Aiogram</span>
+                    <span class="project-tag">Automation</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Baydjayev/Channel-Manager" class="project-link project-link-secondary" target="_blank">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Bot -->
+        <div class="project-card">
+            <div class="project-image">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">Contact Bot</h3>
+                <p class="project-description">
+                    Foydalanuvchi kontaktlarini qabul qilish va tartibli saqlashga yordam beradigan oddiy Telegram bot.
+                </p>
+                <div class="project-tags">
+                    <span class="project-tag">Python</span>
+                    <span class="project-tag">Aiogram</span>
+                    <span class="project-tag">Telegram</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Baydjayev/Contact-Bot" class="project-link project-link-secondary" target="_blank">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Skills Section -->
+
+<!-- Contact Section -->
+<section id="contact">
+    <h2 class="section-title">Contact Me</h2>
+    
+    <div class="contact-container">
+        <!-- Contact Info - Left Side -->
+        <div class="contact-info">
+            <a href="https://t.me/baydjayev" target="_blank" class="contact-card" style="text-decoration: none; color: inherit;">
+                <i class="fab fa-telegram"></i>
+                <div>
+                    <h4>Telegram</h4>
+                    <span style="color: var(--primary);">@baydjayev</span>
+                </div>
+            </a>
+            
+            <a href="https://github.com/Baydjayev" target="_blank" class="contact-card" style="text-decoration: none; color: inherit;">
+                <i class="fab fa-github"></i>
+                <div>
+                    <h4>GitHub</h4>
+                    <span style="color: var(--primary);">Baydjayev</span>
+                </div>
+            </a>
+
+            
+
+            <a href="mailto:itmulkomon@gmail.com" class="contact-card" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <h4>Email</h4>
+                    <span style="color: var(--primary);">itmulkomon@gmail.com</span>
+                </div>
+            </a>
+
+            <a href="tel:+998994533017" class="contact-card" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <h4>Phone</h4>
+                    <span style="color: var(--primary);">+998 99 453 30 17</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Contact Form - Right Side -->
+        <div class="contact-form-section">
+            <h3 style="margin-bottom: 2rem; color: var(--text-primary); font-size: 1.8rem; text-align: center;">Send me a message</h3>
+            <form onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-social">
+            <a href="https://t.me/baydjayev" target="_blank" title="Telegram">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="https://github.com/Baydjayev" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:itmulkomon@gmail.com" title="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="tel:+998994533017" title="Phone">
+                <i class="fas fa-phone"></i>
+            </a>
+
+        </div>
+
+        <div class="footer-links">
+            <a href="#home" onclick="scrollToSection('home')">Home</a>
+            <a href="#about" onclick="scrollToSection('about')">About</a>
+            <a href="#experience" onclick="scrollToSection('experience')">Experience</a>
+            <a href="#projects" onclick="scrollToSection('projects')">Projects</a>
+            <a href="#skills" onclick="scrollToSection('skills')">Skills</a>
+            
+            <a href="#contact" onclick="scrollToSection('contact')">Contact</a>
+        </div>
+
+        <p style="color: var(--text-muted); margin-top: 2rem;">
+            © 2025 Baydjayev Mulkomon. All rights reserved.
+        </p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop" onclick="scrollToSection('home')">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                // Close mobile menu if open
+                const navMenu = document.getElementById('navMenu');
+                navMenu.classList.remove('active');
+            }
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Dark mode toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Language switcher functionality
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Close language dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const languageSwitcher = document.querySelector('.language-switcher');
+            const dropdown = document.getElementById('languageDropdown');
+            
+            if (!languageSwitcher.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Language content translations
+        const translations = {
+            tk: {
+                nav: { home: 'Baş sahypa', about: 'Barada', experience: 'Iş tejribesi', projects: 'Taslamalar', skills: 'Başarnyklar', contact: 'Habarlaşmak' },
+                hero: {
+                    name: 'Baydjayev Mulkomon',
+                    subtitle: 'Backend Developer | Talyp',
+                    description: 'I build Telegram bots with Aiogram and fast, modern websites. I am studying and growing as a backend developer. Clean code, reliable architecture, and user-friendly UX are my priorities.',
+                    stats: { years: 'Ýyl tejribe', companies: 'Kompaniýalar', systems: 'Taslamalar', mentored: 'Okuwçylar' },
+                    buttons: { viewWork: 'Işlerimi gör', connect: 'Habarlaşalyň' }
+                },
+                about: {
+                    title: 'Men barada',
+                    description: 'Men Backend programmaçysymyn. Aiogram arkaly Telegram botlar döredýärin we ulanyjy üçin amatly, çalt saýtlar taýýarlayaryn.',
+                    description2: 'Häzirki wagtda okaýaryn we amaly taslamalar arkaly tejribämi artdyrýaryn. Maksadym — arassa arhitektura, durnukly hyzmat we howpsuz backend ulgamlary.',
+                    description3: 'IT mentorym — Nodir Odilov — maňa programmirleme ugrundan ýol görkezdi we Python boýunça amaly esaslary berk oturtdy.',
+                },
+                experience: { title: 'Iş tejribesi' },
+                projects: { title: 'Taslamalar' },
+                skills: { title: 'Tehniki başarnyklar' },
+                contact: { title: 'Meni bilen habarlaş', sendMessage: 'Menga habar ugrat', name: 'Doly at', email: 'Email', message: 'Habar', send: 'Ugrat' },
+                footer: { copyright: '© 2025 Baydjayev Mulkomon. Ähli hukuklar goralan.', links: { home: 'Baş sahypa', about: 'Barada', experience: 'Iş tejribesi', projects: 'Taslamalar', skills: 'Başarnyklar', contact: 'Habarlaşmak' } }
+            },
+            en: {
+                nav: {
+                    home: 'Home',
+                    about: 'About',
+                    experience: 'Experience',
+                    projects: 'Projects',
+                    skills: 'Skills',
+                    contact: 'Contact'
+                },
+                hero: {
+                    name: 'Baydjayev Mulkomon',
+                    subtitle: 'Backend Developer & Telegram Bot Specialist',
+                    description: 'I build Telegram bots with Aiogram and fast, modern websites. I am studying and growing as a backend developer. Clean code, reliable architecture, and user-friendly UX are my priorities.',
+                    stats: {
+                        years: 'Years Engineering',
+                        companies: 'Worked in Companies',
+                        systems: 'Projects',
+                        mentored: 'Students Mentored'
+                    },
+                    buttons: {
+                        viewWork: 'View My Work',
+                        connect: "Let's Connect"
+                    }
+                },
+                about: {
+                    title: 'About Me',
+                    description: 'I am a backend developer. I build Telegram bots with Aiogram and user-friendly, fast websites.',
+                    description2: 'I am currently studying and improving through practical projects. My goals are clean architecture, reliable services, and secure backend systems.',
+                    description3: "Interests: backend systems, Telegram bots, and web development. Reach out for collaboration.",
+                    education: {
+                        masters: 'IT Academy',
+                        bachelors: 'Polytechnic Institute',
+                        mastersTitle: 'Student (Al-Khorezmi Vorislari IT Academy)',
+                        bachelorsTitle: 'Student (Polytechnic Institute)',
+                        university: '—',
+                        focus: 'Focus:',
+                        courses: 'Key Notes:',
+                        gpa: 'GPA: —',
+                        mastersPeriod: 'Sep 2024 — Present',
+                        bachelorsPeriod: 'Sep 2025 — Present',
+                        mastersFocus: 'Backend Development & Telegram Bots (Aiogram)',
+                        bachelorsCourses: 'Secondary School: Sep 2016 — 2025. Polytechnic: Sep 2025 — Present.'
+                    },
+                    skills: {
+                        title: 'Soft Skills',
+                        languages: 'Languages',
+                        softSkills: [
+                            'Leadership', 'Teamwork', 'Communication', 'Self-learning', 'Deep Work',
+                            'Teaching', 'Mentoring', 'Problem Solving', 'Critical Thinking', 'Time Management',
+                            'Adaptability', 'Collaboration', 'Creativity', 'Attention to Detail', 'Project Management',
+                            'Conflict Resolution', 'Active Listening', 'Presentation Skills', 'Decision Making', 'Emotional Intelligence'
+                        ],
+                        languageLevels: {
+                            native: 'Native',
+                            advanced: 'Advanced',
+                            fluent: 'Fluent'
+                        }
+                    },
+                    footer: {
+                        copyright: '© 2025 Baydjayev Mulkomon. All rights reserved.',
+                        links: {
+                            home: 'Home',
+                            about: 'About',
+                            experience: 'Experience',
+                            projects: 'Projects',
+                            skills: 'Skills',
+                            contact: 'Contact'
+                        }
+                    }
+                },
+                experience: {
+                    title: 'Work Experience'
+                },
+                projects: {
+                    title: 'Projects'
+                },
+                skills: {
+                    title: 'Technical skills'
+                },
+                contact: {
+                    title: 'Contact Me',
+                    sendMessage: 'Send me a message',
+                    name: 'Full Name',
+                    email: 'Email',
+                    message: 'Message',
+                    send: 'Send Message'
+                }
+            },
+            uz: {
+                nav: {
+                    home: 'Bosh sahifa',
+                    about: 'Men haqimda',
+                    experience: 'Ish tajribasi',
+                    projects: 'Loyihalar',
+                    skills: 'Ko\'nikmalar',
+                    contact: 'Aloqa'
+                },
+                hero: {
+                    name: 'Baydjayev Mulkomon',
+                    subtitle: 'Backend Developer & Telegram Bot Specialist',
+                    description: 'Aiogram yordamida Telegram botlar va zamonaviy, tezkor veb-saytlar yarataman. Hozirda o\'qishni davom ettiryapman va backend yo\'nalishida rivojlanmoqdaman. Toza kod, ishonchli arxitektura va foydalanuvchi uchun qulay tajriba — ustuvorligim.',
+                    stats: {
+                        years: 'Yillik tajriba',
+                        companies: 'Kompaniyalarda ishlagan',
+                        systems: 'Ishlab chiqarish tizimlari',
+                        mentored: 'Mentorlik qilgan talabalar'
+                    },
+                    buttons: {
+                        viewWork: 'Ishlarimni ko\'rish',
+                        connect: 'Bog\'lanish'
+                    }
+                },
+                about: {
+                    title: 'Men haqimda',
+                    description: 'Men Backend Developer va Telegram Bot mutaxassisiman. Aiogram yordamida botlar hamda foydalanuvchi uchun qulay, tezkor veb-saytlar ishlab chiqaman.',
+                    description2: '1+ yil tajribaga egaman. Yo\'nalishlarim: Telegram botlar (Aiogram), Backend Development, Web Development. Amaliy loyihalar orqali doimiy ravishda rivojlanaman.',
+                    description3: 'Hamkorlik va takliflar uchun bog\'laning. O\'rgatgan talabalarim: 10+; yakunlangan loyihalar: 8+.',
+                    education: {
+                        masters: 'IT Akademiyasi',
+                        bachelors: 'Polytechnic Institute',
+                        mastersTitle: 'Talaba (Al-Khorezmi Vorislari IT Academy)',
+                        bachelorsTitle: 'Talaba (Polytechnic Institute)',
+                        university: '—',
+                        focus: 'Yo\'nalish:',
+                        courses: 'Asosiy eslatmalar:',
+                        gpa: 'GPA: —',
+                        mastersPeriod: 'sep2024 — Hozirgacha',
+                        bachelorsPeriod: 'sep2025 — Hozirgacha',
+                        mastersFocus: 'Backend Development & Telegram Bots (Aiogram)',
+                        bachelorsCourses: 'Secondary School: sep 2016 — 2025. Polytechnic: sep 2025 — Hozirgacha.'
+                    },
+                    skills: {
+                        title: 'Yumshoq ko\'nikmalar',
+                        languages: 'Tillar',
+                        softSkills: [
+                            'Liderlik', 'Jamoa ishi', 'Muloqot', 'O\'z-o\'zini o\'qitish', 'Chuqur ish',
+                            'O\'qitish', 'Mentorlik', 'Muammolarni hal qilish', 'Tanqidiy fikrlash', 'Vaqtni boshqarish',
+                            'Moslashuvchanlik', 'Hamkorlik', 'Ijodkorlik', 'Tafsilotlarga e\'tibor', 'Loyiha boshqaruvi',
+                            'Nizolarni hal qilish', 'Faol tinglash', 'Taqdimot ko\'nikmalari', 'Qaror qabul qilish', 'Emotsional aql'
+                        ],
+                        languageLevels: {
+                            native: 'Ona tili',
+                            advanced: 'Yuqori',
+                            fluent: 'Erkin'
+                        }
+                    },
+                    footer: {
+                        copyright: '© 2025 Baydjayev Mulkomon. Barcha huquqlar himoyalangan.',
+                        links: {
+                            home: 'Bosh sahifa',
+                            about: 'Men haqimda',
+                            experience: 'Ish tajribasi',
+                            projects: 'Loyihalar',
+                            skills: 'Ko\'nikmalar',
+                            contact: 'Aloqa'
+                        }
+                    }
+                },
+                experience: {
+                    title: 'Ish tajribasi',
+                    softwareEngineer: {
+                        title: 'Talaba',
+                        company: 'Al-Xorazmiy Vorislari',
+                        period: 'sep 2024 — Hozirgacha',
+                        description: [
+                            'Algoritmlar, Python va Aiogram bo\'yicha tahsil olaman',
+                            'Kichik Telegram bot va veb-loyihalar ustida ishlayman',
+                            'Amaliy topshiriqlar orqali tajribani oshiryapman',
+                            'Jamoaviy ishlash va prezentatsiya ko\'nikmalarini rivojlantiryapman'
+                        ]
+                    },
+                    systemAdmin: {
+                        title: 'Tizim administratori',
+                        company: 'Mustafo Software LLC',
+                        period: 'Apr 2023 — Okt 2023',
+                        description: [
+                            '8 ta kompaniya uchun serverlar va tarmoq uskunalarining uzluksiz ishlashini ta\'minladim',
+                            'Ma\'lumotlarni qayta tiklash va zaxiralash tizimlarini joriy qildim va sozladim',
+                            'Optimallashtirish texnikasi orqali sahifa yuklanish tezligini 30 dan 70 ga oshirdim',
+                            'Infratuzilma monitoringi va ishlash tezligini sozlashni boshqardim'
+                        ]
+                    },
+                    systemAdminIntern: {
+                        title: 'Tizim administratori stajyori',
+                        company: 'Mustafo Software LLC',
+                        period: 'Yan 2023 — Apr 2023',
+                        description: [
+                            'Serverlar va tarmoq uskunalarining ishlash tamoyillarini o\'rgandim',
+                            'Ma\'lumotlarni qayta tiklash va zaxiralash tizimlarini joriy qilish va sozlashda yordam berdim',
+                            'Kompaniyaning IT-infratuzilmasini monitoring va tahlil qilishda qatnashdim'
+                        ]
+                    }
+                },
+                projects: {
+                    title: 'Loyihalar',
+                    myAgent: {
+                        title: 'MyAgent Travel Platform',
+                        description: 'Minglab foydalanuvchilarga xizmat ko\'rsatadigan keng qamrovli sayohatni bron qilish platformasi uchun backend arxitekturasini boshqarish va API ishlab chiqishni rahbarlik qildim. Python/FastAPI yordamida kengaytiriladigan mikroxizmatlarni yaratdim, ko\'plab uchinchi tomon API\'larini (mehmonxonalar, sug\'urta, transferlar) integratsiya qildim va real vaqtda bron tasdiqlarini amalga oshirdim. Narxlarni bashorat qilish uchun aqlli algoritmlar va mijozlar qo\'llab-quvvatlashning avtomatlashtirilgan ish jarayonlarini ishlab chiqdim, API javob vaqti 200ms dan kam natijasiga erishdim.',
+                        tags: ['Python', 'FastAPI', 'Mikroxizmatlar', 'API integratsiya', 'Mashinani o\'rganish', 'PostgreSQL', 'Docker'],
+                        visit: 'Platformani ko\'rish'
+                    },
+                    forwardBlockerBot: {
+                        title: 'ForwardBlockerBot',
+                        description: 'Kontentni himoya qilish uchun ilg\'or Telegram bot, guruhlar va kanallarda xabarlarni qayta yuborish, nusxalash va ruxsatsiz tarqatishni oldini olish uchun mo\'ljallangan. Kontent yaratuvchilari, onlayn o\'qituvchilar va raqamli jamoalar uchun maxfiylikni ta\'minlaydi, real vaqtda xabarlarni qayta yuborishga urinishlarni aniqlaydi va buzuvchilarni avtomatik cheklaydi. Bot moslashuvchan foydalanuvchi boshqaruvi, jurnallash va administratorlarga bildirishnomalarni o\'z ichiga oladi, guruh kontentining xavfsizligi ustidan to\'liq nazoratni ta\'minlaydi.',
+                        tags: ['Python', 'Aiogram 3.22', 'Telegram Bot API', 'Maxfiylik', 'Xavfsizlik', 'Avtomatlashtirish'],
+                        viewCode: 'Kodni ko\'rish'
+                    },
+                    shutupBot: {
+                        title: 'ShutupBot',
+                        description: 'Guruhli chatlarda taqiqlangan so\'zlarni avtomatik aniqlaydigan va olib tashlaydigan, progressiv jazo tizimidan foydalanadigan aqlli Telegram moderator bot. Toza va hurmatli muloqot muhitini saqlash uchun ishlab chiqilgan, real vaqtda buzilishlarni kuzatadi, kerakli jazo choralarini qo\'llaydi va foydalanuvchilar va administratorlarga shaxsiylashtirilgan ogohlantirishlar yuboradi. Bot 24 soatlik faollik kuzatuvi, eski buzilishlarni avtomatik tozalash, sozlanishi mumkin bo\'lgan taqiqlangan so\'zlar ro\'yxati va o\'zbek tilida to\'liq xabar shablonlarini o\'z ichiga oladi — katta onlayn jamoalar, o\'quv guruhlari va professional chatlar uchun ideal.',
+                        tags: ['Python', 'Aiogram 3.22', 'Telegram Bot API', 'Moderatsiya', 'Avtomatlashtirish', 'Xavfsizlik'],
+                        viewCode: 'Kodni ko\'rish'
+                    },
+                    trafficDetector: {
+                        title: 'Traffic Detector',
+                        description: 'Anomal trafikni aniqlash va monitoring qilish uchun ijtimoiy startap. Xavfsizlik tahdidlarini aniqlash uchun anomal tarmoq trafiklarini aniqlashda AI modellaridan foydalanadi.',
+                        tags: ['Python', 'Neural tarmoqlar', 'Ma\'lumotlar tahlili', 'Xavfsizlik'],
+                        viewCode: 'Kodni ko\'rish'
+                    },
+                    moreProjects: {
+                        title: 'Ko\'proq muhandislik mahorati',
+                        description: 'Ushbu taqdim etilgan loyihalardan tashqari, men keshlash tizimlari, real vaqtda ma\'lumotlarni qayta ishlash tizimlari, avtomatlashtirilgan testlash va xavfsizlik monitoring vositalarini o\'z ichiga olgan korporativ yechimlarni yaratdim. Har bir tizim kengaytirish, qo\'llab-quvvatlash va ishlash tezligi asosiy tamoyillar sifatida ishlab chiqilgan.',
+                        discuss: 'Sizning loyihangizni muhokama qiling'
+                    }
+                },
+                skills: {
+                    title: 'Texnik ko\'nikmalar',
+                    fullStack: 'To\'liq funksional dasturlash',
+                    databases: 'Ma\'lumotlar bazalari va saqlash',
+                    devops: 'DevOps va infratuzilma',
+                    cybersecurity: 'Kiberxavfsizlik',
+                    softwareEngineering: 'Dasturiy ta\'minot muhandisligi',
+                    leadership: 'Liderlik va muloqot',
+                    aiAutomation: 'AI va avtomatlashtirish'
+                },
+
+                contact: {
+                    title: 'Men bilan bog\'lanish',
+                    sendMessage: 'Menga xabar yuboring',
+                    name: 'To\'liq ism',
+                    email: 'Elektron pochta',
+                    message: 'Xabar',
+                    send: 'Xabarni yuborish'
+                }
+            },
+            tr: {
+                nav: {
+                    home: 'Ana Sayfa',
+                    about: 'Hakkımda',
+                    experience: 'İş Deneyimi',
+                    projects: 'Projeler',
+                    skills: 'Yetenekler',
+                    contact: 'İletişim'
+                },
+                hero: {
+                    name: 'Baydjayev Mulkomon',
+                    subtitle: 'Backend Developer & Telegram Bot Specialist',
+                    description: 'Aiogram ile Telegram botları ve hızlı, modern web siteleri geliştiriyorum. Şu anda okuyorum ve backend geliştirici olarak gelişiyorum. Temiz kod, güvenilir mimari ve kullanıcı dostu deneyim önceliklerimdir.',
+                    stats: {
+                        years: 'Yıllık Deneyim',
+                        companies: 'Çalışılan Şirketler',
+                        systems: 'Üretim Sistemleri',
+                        mentored: 'Mentorluk Yapılan Öğrenciler'
+                    },
+                    buttons: {
+                        viewWork: 'Çalışmalarımı Gör',
+                        connect: 'İletişime Geç'
+                    }
+                },
+                about: {
+                    title: 'Hakkımda',
+                    description: 'Backend Developer ve Telegram Bot uzmanıyım. Aiogram ile botlar ve kullanıcı dostu, hızlı web siteleri geliştiriyorum.',
+                    description2: '1+ yıl deneyim. Odaklar: Telegram botları (Aiogram), Backend Development, Web Development. Uygulamalı projelerle sürekli gelişiyorum.',
+                    description3: 'IT mentorum — Nodir Odilov — yazılım alanına girişimde ilham kaynağı oldu ve Python\'u pratik uygulamalarla sağlam temelde öğretti.',
+                    education: {
+                        masters: 'Yüksek Lisans Derecesi',
+                        bachelors: 'Lisans Derecesi',
+                        mastersTitle: 'Bilgi Güvenliği Bilim Ustası',
+                        bachelorsTitle: 'Bilgi Güvenliği Bilim Ustası',
+                        university: 'Taşkent Bilgi Teknolojileri Üniversitesi',
+                        focus: 'Odak:',
+                        courses: 'Ana Dersler:',
+                        gpa: 'GPA: 5.0/5.0 — Onur Derecesi (6\'dan 1.)',
+                        mastersPeriod: 'Eyl 2024 — Şu an',
+                        bachelorsPeriod: 'Eyl 2020 — Haz 2024',
+                        mastersFocus: 'Bilimsel araştırma metodolojisi, Bilgi arama ve çıkarma, İnovasyon ve proje yönetimi, Algoritma tasarımı ve analizi, Yapay zeka ve sinir ağları, Bilgisayar adli bilimi, İş sürekliliği ve afet kurtarma, Bilimsel pedagojik çalışma',
+                        bachelorsCourses: 'Algoritmalar ve veri yapıları, Nesne yönelimli programlama, Ağ güvenliği, Kablosuz ağlar, Anahtarlama ve yönlendirme, İşletim sistemleri, Bilgisayar mimarisi, Bilgisayar ağları, Sistem tasarımı, Web geliştirme, Veritabanı yönetim sistemleri, Ayrık matematik, Olasılık ve istatistik'
+                    },
+                    skills: {
+                        title: 'Yumuşak Beceriler',
+                        languages: 'Diller',
+                        softSkills: [
+                            'Liderlik', 'Takım Çalışması', 'İletişim', 'Kendi Kendine Öğrenme', 'Derin Çalışma',
+                            'Öğretme', 'Mentorluk', 'Problem Çözme', 'Eleştirel Düşünme', 'Zaman Yönetimi',
+                            'Uyum Sağlama', 'İşbirliği', 'Yaratıcılık', 'Detaylara Dikkat', 'Proje Yönetimi',
+                            'Çatışma Çözümü', 'Aktif Dinleme', 'Sunum Becerileri', 'Karar Verme', 'Duygusal Zeka'
+                        ],
+                        languageLevels: {
+                            native: 'Ana Dil',
+                            advanced: 'İleri',
+                            fluent: 'Akıcı'
+                        }
+                    },
+                    footer: {
+                        copyright: '© 2025 Baydjayev Mulkomon. Tüm hakları saklıdır.',
+                        links: {
+                            home: 'Ana Sayfa',
+                            about: 'Hakkımda',
+                            experience: 'İş Deneyimi',
+                            projects: 'Projeler',
+                            skills: 'Yetenekler',
+                            contact: 'İletişim'
+                        }
+                    }
+                },
+                experience: {
+                    title: 'İş Deneyimi'
+                },
+                projects: {
+                    title: 'Projeler',
+                    myAgent: {
+                        title: 'MyAgent Travel Platform',
+                        description: 'Binlerce kullanıcıya hizmet veren kapsamlı seyahat rezervasyon platformu için backend mimarisini yönetme ve API geliştirme liderliği yaptım. Python/FastAPI kullanarak ölçeklenebilir mikroservisler oluşturdum, birden fazla üçüncü taraf API\'sini (oteller, sigorta, transferler) entegre ettim ve gerçek zamanlı rezervasyon onaylarını uyguladım. Fiyat tahminleme için akıllı algoritmalar ve müşteri desteği otomatik iş akışları geliştirdim, %99.9 çalışma süresi ve 200ms\'den az API yanıt süresi elde ettim.',
+                        tags: ['Python', 'FastAPI', 'Mikroservisler', 'API entegrasyonu', 'Makine öğrenmesi', 'PostgreSQL', 'Docker'],
+                        visit: 'Platformu ziyaret et'
+                    },
+                    forwardBlockerBot: {
+                        title: 'ForwardBlockerBot',
+                        description: 'İçerik koruması için gelişmiş Telegram bot, gruplar ve kanallarda mesajların yeniden gönderilmesini, kopyalanmasını ve yetkisiz dağıtılmasını önlemek için tasarlanmış. İçerik üreticileri, çevrimiçi eğitmenler ve dijital topluluklar için gizlilik sağlar, gerçek zamanlı mesaj yeniden gönderme girişimlerini tespit eder ve ihlalcileri otomatik olarak kısıtlar. Bot uyarlanabilir kullanıcı yönetimi, günlükleme ve yönetici bildirimlerini içerir, grup içeriğinin güvenliği üzerinde tam kontrol sağlar.',
+                        tags: ['Python', 'Aiogram 3.22', 'Telegram Bot API', 'Gizlilik', 'Güvenlik', 'Otomasyon'],
+                        viewCode: 'Kodu görüntüle'
+                    },
+                    shutupBot: {
+                        title: 'ShutupBot',
+                        description: 'Grup sohbetlerinde yasaklı kelimeleri otomatik olarak tespit eden ve kaldıran, progresif ceza sistemi kullanan akıllı Telegram moderatör bot. Temiz ve saygılı iletişim ortamını korumak için tasarlanmış, gerçek zamanlı ihlalleri izler, eskalasyon cezaları uygular ve kullanıcılara ve yöneticilere kişiselleştirilmiş uyarılar gönderir. Bot 24 saatlik aktivite izleme, eski ihlalleri otomatik temizleme, özelleştirilebilir yasaklı kelime listeleri ve Özbekçe tam mesaj şablonlarını içerir — büyük çevrimiçi topluluklar, eğitim grupları ve profesyonel sohbetler için ideal.',
+                        tags: ['Python', 'Aiogram 3.22', 'Telegram Bot API', 'Moderasyon', 'Otomasyon', 'Güvenlik'],
+                        viewCode: 'Kodu görüntüle'
+                    },
+                    trafficDetector: {
+                        title: 'Traffic Detector',
+                        description: 'Anormal trafiği tespit etme ve izleme için sosyal startup. Güvenlik tehditlerini belirlemek için olağandışı ağ trafik kalıplarını tespit etmek için AI modellerini kullanır.',
+                        tags: ['Python', 'Sinir ağları', 'Veri analizi', 'Güvenlik'],
+                        viewCode: 'Kodu görüntüle'
+                    },
+                    moreProjects: {
+                        title: 'Daha fazla mühendislik ustalığı',
+                        description: 'Bu sunulan projelerin yanı sıra, dağıtılmış önbellekleme sistemleri, gerçek zamanlı veri işleme boru hatları, otomatik test çerçeveleri ve güvenlik izleme araçlarını içeren kurumsal çözümler oluşturdum. Her sistem ölçeklenebilirlik, sürdürülebilirlik ve performansı temel prensipler olarak geliştirilmiştir.',
+                        discuss: 'Projenizi tartışın'
+                    }
+                },
+                skills: {
+                    title: 'Teknik Yetenekler',
+                    fullStack: 'Tam yığın geliştirme',
+                    databases: 'Veritabanları ve depolama',
+                    devops: 'DevOps ve altyapı',
+                    cybersecurity: 'Siber güvenlik',
+                    softwareEngineering: 'Yazılım mühendisliği',
+                    leadership: 'Liderlik ve iletişim',
+                    aiAutomation: 'AI ve otomasyon'
+                },
+            
+                contact: {
+                    title: 'Benimle İletişime Geç',
+                    sendMessage: 'Bana mesaj gönder',
+                    name: 'Tam Ad',
+                    email: 'E-posta',
+                    message: 'Mesaj',
+                    send: 'Mesaj Gönder'
+                }
+            },
+            ru: {
+                nav: {
+                    home: 'Главная',
+                    about: 'Обо мне',
+                    experience: 'Опыт работы',
+                    projects: 'Проекты',
+                    skills: 'Навыки',
+                    contact: 'Контакты'
+                },
+                hero: {
+                    name: 'Байджаев Мулькомон',
+                    subtitle: 'Backend Developer & Telegram Bot Specialist',
+                    description: 'Я разрабатываю Telegram-ботов на Aiogram и современные быстрые сайты. Сейчас учусь и развиваюсь как backend-разработчик. Чистый код, надёжная архитектура и удобство для пользователя — мои приоритеты.',
+                    stats: {
+                        years: 'Лет опыта',
+                        companies: 'Работал в компаниях',
+                        systems: 'Продакшн системы',
+                        mentored: 'Менторство студентов'
+                    },
+                    buttons: {
+                        viewWork: 'Посмотреть работы',
+                        connect: 'Связаться'
+                    }
+                },
+                about: {
+                    title: 'Обо мне',
+                    description: 'Backend-разработчик и специалист по Telegram-ботам. Разрабатываю ботов на Aiogram и современные быстрые сайты.',
+                    description2: 'Опыт 1+ год. Направления: Telegram боты (Aiogram), Backend Development, Web Development. Постоянно развиваюсь через практические проекты.',
+                    description3: 'Мой IT-наставник — Нодир Одилов — стал причиной моего входа в программирование и заложил прочную практическую основу в Python.',
+                    education: {
+                        masters: 'Магистерская степень',
+                        bachelors: 'Бакалаврская степень',
+                        mastersTitle: 'Магистр наук по информационной безопасности',
+                        bachelorsTitle: 'Бакалавр инженерии по информационной безопасности',
+                        university: 'Ташкентский университет информационных технологий',
+                        focus: 'Фокус:',
+                        courses: 'Основные курсы:',
+                        gpa: 'GPA: 5.0/5.0 — с отличием (1-е из 6)',
+                        mastersPeriod: 'Сен 2024 — Настоящее время',
+                        bachelorsPeriod: 'Сен 2020 — Июн 2024',
+                        mastersFocus: 'Методология научных исследований, Поиск и извлечение информации, Инновации и управление проектами, Проектирование и анализ алгоритмов, Искусственный интеллект и нейронные сети, Компьютерная криминалистика, Непрерывность бизнеса и восстановление после катастроф, Научно-педагогическая работа',
+                        bachelorsCourses: 'Алгоритмы и структуры данных, Объектно-ориентированное программирование, Сетевая безопасность, Беспроводные сети, Коммутация и маршрутизация, Операционные системы, Архитектура компьютера, Компьютерные сети, Проектирование систем, Веб-разработка, Системы управления базами данных, Дискретная математика, Теория вероятностей и статистика'
+                    },
+                    skills: {
+                        title: 'Мягкие навыки',
+                        languages: 'Языки',
+                        softSkills: [
+                            'Лидерство', 'Командная работа', 'Коммуникация', 'Самообучение', 'Глубокая работа',
+                            'Обучение', 'Менторство', 'Решение проблем', 'Критическое мышление', 'Управление временем',
+                            'Адаптивность', 'Сотрудничество', 'Креативность', 'Внимание к деталям', 'Управление проектами',
+                            'Разрешение конфликтов', 'Активное слушание', 'Навыки презентации', 'Принятие решений', 'Эмоциональный интеллект'
+                        ],
+                        languageLevels: {
+                            native: 'Родной',
+                            advanced: 'Продвинутый',
+                            fluent: 'Свободный'
+                        }
+                    },
+                    footer: {
+                        copyright: '© 2025 Байджаев Мулькомон. Все права защищены.',
+                        links: {
+                            home: 'Главная',
+                            about: 'Обо мне',
+                            experience: 'Опыт работы',
+                            projects: 'Проекты',
+                            skills: 'Навыки',
+                            contact: 'Контакты'
+                        }
+                    }
+                },
+                experience: {
+                    title: 'Опыт работы'
+                },
+                projects: {
+                    title: 'Проекты',
+                    myAgent: {
+                        title: 'MyAgent Travel Platform',
+                        description: 'Руководил архитектурой backend и разработкой API для комплексной платформы бронирования путешествий, обслуживающей тысячи пользователей. Создал масштабируемые микросервисы с использованием Python/FastAPI, интегрировал множественные сторонние API (отели, страхование, трансферы) и реализовал подтверждения бронирования в реальном времени. Разработал интеллектуальные алгоритмы прогнозирования цен и автоматизированные рабочие процессы поддержки клиентов, достигнув 99.9% времени безотказной работы и времени отклика API менее 200мс.',
+                        tags: ['Python', 'FastAPI', 'Микросервисы', 'API интеграция', 'Машинное обучение', 'PostgreSQL', 'Docker'],
+                        visit: 'Посетить платформу'
+                    },
+                    forwardBlockerBot: {
+                        title: 'ForwardBlockerBot',
+                        description: 'Продвинутый Telegram бот для защиты контента, предназначенный для предотвращения пересылки, копирования и несанкционированного распространения сообщений в группах и каналах. Обеспечивает конфиденциальность для создателей контента, онлайн-преподавателей и цифровых сообществ, обнаруживая попытки пересылки сообщений в реальном времени и автоматически ограничивая нарушителей. Бот включает адаптивное управление пользователями, логирование и уведомления администраторов, обеспечивая полный контроль над безопасностью контента группы.',
+                        tags: ['Python', 'Aiogram 3.22', 'Telegram Bot API', 'Конфиденциальность', 'Безопасность', 'Автоматизация'],
+                        viewCode: 'Посмотреть код'
+                    },
+                    shutupBot: {
+                        title: 'ShutupBot',
+                        description: 'Интеллектуальный Telegram бот модерации, который автоматически обнаруживает и удаляет запрещенные слова в групповых чатах, используя прогрессивную систему наказаний. Разработан для поддержания чистого и уважительного коммуникационного окружения, отслеживает нарушения в реальном времени, применяет эскалационные штрафы и отправляет персонализированные предупреждения пользователям и администраторам. Бот включает 24-часовое отслеживание активности, автоматическую очистку старых нарушений, настраиваемые списки запрещенных слов и полные шаблоны сообщений на узбекском языке — идеален для больших онлайн-сообществ, учебных групп и профессиональных чатов.',
+                        tags: ['Python', 'Aiogram 3.22', 'Telegram Bot API', 'Модерация', 'Автоматизация', 'Безопасность'],
+                        viewCode: 'Посмотреть код'
+                    },
+                    trafficDetector: {
+                        title: 'Traffic Detector',
+                        description: 'Социальный стартап для обнаружения и мониторинга аномального трафика. Использует модели ИИ для выявления необычных сетевых паттернов трафика и потенциальных угроз безопасности.',
+                        tags: ['Python', 'Нейронные сети', 'Анализ данных', 'Безопасность'],
+                        viewCode: 'Посмотреть код'
+                    },
+                    moreProjects: {
+                        title: 'Больше инженерного мастерства',
+                        description: 'Помимо этих представленных проектов, я создавал корпоративные решения, включая распределенные системы кэширования, конвейеры обработки данных в реальном времени, автоматизированные фреймворки тестирования и инструменты мониторинга безопасности. Каждая система разработана с масштабируемостью, поддерживаемостью и производительностью как основными принципами.',
+                        discuss: 'Обсудить ваш проект'
+                    }
+                },
+                skills: {
+                    title: 'Технические навыки',
+                    fullStack: 'Полнофункциональная разработка',
+                    databases: 'Базы данных и хранение',
+                    devops: 'DevOps и инфраструктура',
+                    cybersecurity: 'Кибербезопасность',
+                    softwareEngineering: 'Инженерия программного обеспечения',
+                    leadership: 'Лидерство и коммуникация',
+                    aiAutomation: 'ИИ и автоматизация'
+                },
+
+                contact: {
+                    title: 'Связаться со мной',
+                    sendMessage: 'Отправить мне сообщение',
+                    name: 'Полное имя',
+                    email: 'Электронная почта',
+                    message: 'Сообщение',
+                    send: 'Отправить сообщение'
+                }
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function changeLanguage(lang) {
+            try {
+                currentLanguage = lang;
+                const currentLangSpan = document.getElementById('current-lang');
+                // Set language attribute on HTML element
+                document.documentElement.lang = lang;
+                // Update current language indicator
+                if (currentLangSpan) {
+                    switch(lang) {
+                        case 'tk': currentLangSpan.textContent = 'TK'; break;
+                        case 'en': currentLangSpan.textContent = 'EN'; break;
+                        case 'uz': currentLangSpan.textContent = 'UZ'; break;
+                        case 'tr': currentLangSpan.textContent = 'TR'; break;
+                        case 'ru': currentLangSpan.textContent = 'RU'; break;
+                    }
+                }
+                // Update active language option
+                document.querySelectorAll('.language-option').forEach(option => {
+                    option.classList.remove('active');
+                });
+                const activeOption = document.querySelector(`[data-lang="${lang}"]`);
+                if (activeOption) activeOption.classList.add('active');
+                // Update page content
+                updatePageContent(lang);
+                // Close dropdown
+                const dropdown = document.getElementById('languageDropdown');
+                if (dropdown) dropdown.classList.remove('active');
+                // Save language preference
+                localStorage.setItem('language', lang);
+            } catch (err) {
+                console.error('Language switch error:', err);
+            }
+        }
+
+        function updatePageContent(lang) {
+            const t = translations[lang];
+            
+            // Update navigation
+            document.querySelectorAll('.nav-menu a').forEach((link, index) => {
+                const keys = ['home', 'about', 'experience', 'projects', 'skills', 'contact'];
+                if (keys[index]) {
+                    link.textContent = t.nav[keys[index]];
+                }
+            });
+
+            // Update hero section
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.querySelector('h1').textContent = t.hero.name;
+                hero.querySelector('.subtitle').textContent = t.hero.subtitle;
+                hero.querySelector('.hero-description').textContent = t.hero.description;
+                
+                // Update stats labels
+                const statLabels = hero.querySelectorAll('.stat-label');
+                const statKeys = ['years', 'companies', 'systems', 'mentored'];
+                statLabels.forEach((label, index) => {
+                    if (statKeys[index]) {
+                        label.textContent = t.hero.stats[statKeys[index]];
+                    }
+                });
+
+                // Update buttons
+                const buttons = hero.querySelectorAll('.btn');
+                if (buttons[0]) buttons[0].textContent = t.hero.buttons.viewWork;
+                if (buttons[1]) buttons[1].textContent = t.hero.buttons.connect;
+            }
+
+            // Update section titles
+            document.querySelectorAll('.section-title').forEach((title, index) => {
+                const keys = ['about', 'experience', 'projects', 'skills', 'contact'];
+                if (keys[index]) {
+                    title.textContent = t[keys[index]].title;
+                }
+            });
+
+            // Update about section
+            const aboutIntro = document.querySelector('.about-intro');
+            if (aboutIntro) {
+                const paragraphs = aboutIntro.querySelectorAll('p');
+                if (paragraphs[0]) {
+                    paragraphs[0].textContent = t.about.description;
+                }
+                if (paragraphs[1]) {
+                    paragraphs[1].textContent = t.about.description2;
+                }
+                if (paragraphs[2]) {
+                    paragraphs[2].textContent = t.about.description3;
+                }
+            }
+
+            // Update education section
+            const educationCards = document.querySelectorAll('.education-card');
+            if (educationCards.length >= 2 && t.about.education) {
+                // Master's Degree Card
+                const mastersCard = educationCards[0];
+                if (mastersCard) {
+                    const mastersHeader = mastersCard.querySelector('.education-header h3');
+                    const mastersDegree = mastersCard.querySelector('.education-degree');
+                    const mastersSchool = mastersCard.querySelector('.education-school');
+                    const mastersDate = mastersCard.querySelector('.education-date-badge');
+                    const mastersFocus = mastersCard.querySelector('p');
+                    
+                    if (mastersHeader) mastersHeader.textContent = t.about.education.masters;
+                    if (mastersDegree) mastersDegree.textContent = t.about.education.mastersTitle;
+                    if (mastersSchool) mastersSchool.textContent = t.about.education.university;
+                    if (mastersDate) mastersDate.innerHTML = `<i class="fas fa-calendar-alt"></i> ${t.about.education.mastersPeriod}`;
+                    if (mastersFocus) mastersFocus.innerHTML = `<strong style="color: var(--primary);">${t.about.education.focus}</strong> ${t.about.education.mastersFocus}`;
+                }
+                
+                // Bachelor's Degree Card
+                const bachelorsCard = educationCards[1];
+                if (bachelorsCard) {
+                    const bachelorsHeader = bachelorsCard.querySelector('.education-header h3');
+                    const bachelorsDegree = bachelorsCard.querySelector('.education-degree');
+                    const bachelorsSchool = bachelorsCard.querySelector('.education-school');
+                    const bachelorsDate = bachelorsCard.querySelector('.education-date-badge');
+                    const gpaBadge = bachelorsCard.querySelector('.gpa-badge');
+                    const bachelorsCourses = bachelorsCard.querySelector('p');
+                    
+                    if (bachelorsHeader) bachelorsHeader.textContent = t.about.education.bachelors;
+                    if (bachelorsDegree) bachelorsDegree.textContent = t.about.education.bachelorsTitle;
+                    if (bachelorsSchool) bachelorsSchool.textContent = t.about.education.university;
+                    if (bachelorsDate) bachelorsDate.innerHTML = `<i class="fas fa-calendar-alt"></i> ${t.about.education.bachelorsPeriod}`;
+                    if (gpaBadge) gpaBadge.innerHTML = `<i class="fas fa-trophy"></i> ${t.about.education.gpa}`;
+                    if (bachelorsCourses) bachelorsCourses.innerHTML = `<strong style="color: var(--primary);">${t.about.education.courses}</strong> ${t.about.education.bachelorsCourses}`;
+                }
+            }
+
+            // Update experience section
+            const experienceSection = document.querySelector('#experience');
+            if (experienceSection && t.experience.itMentor) {
+                const timelineItems = experienceSection.querySelectorAll('.timeline-item');
+                
+                // IT Mentor
+                if (timelineItems[0]) {
+                    const title = timelineItems[0].querySelector('.timeline-title');
+                    const company = timelineItems[0].querySelector('.timeline-company');
+                    const date = timelineItems[0].querySelector('.timeline-date');
+                    const listItems = timelineItems[0].querySelectorAll('li');
+                    
+                    if (title) title.textContent = t.experience.itMentor.title;
+                    if (company) company.textContent = t.experience.itMentor.company;
+                    if (date) date.textContent = t.experience.itMentor.period;
+                    
+                    t.experience.itMentor.description.forEach((desc, index) => {
+                        if (listItems[index]) {
+                            listItems[index].textContent = desc;
+                        }
+                    });
+                }
+                
+                // Software Engineer
+                if (timelineItems[1]) {
+                    const title = timelineItems[1].querySelector('.timeline-title');
+                    const company = timelineItems[1].querySelector('.timeline-company');
+                    const date = timelineItems[1].querySelector('.timeline-date');
+                    const listItems = timelineItems[1].querySelectorAll('li');
+                    
+                    if (title) title.textContent = t.experience.softwareEngineer.title;
+                    if (company) company.textContent = t.experience.softwareEngineer.company;
+                    if (date) date.textContent = t.experience.softwareEngineer.period;
+                    
+                    t.experience.softwareEngineer.description.forEach((desc, index) => {
+                        if (listItems[index]) {
+                            listItems[index].textContent = desc;
+                        }
+                    });
+                }
+                
+                // System Administrator
+                if (timelineItems[2]) {
+                    const title = timelineItems[2].querySelector('.timeline-title');
+                    const company = timelineItems[2].querySelector('.timeline-company');
+                    const date = timelineItems[2].querySelector('.timeline-date');
+                    const listItems = timelineItems[2].querySelectorAll('li');
+                    
+                    if (title) title.textContent = t.experience.systemAdmin.title;
+                    if (company) company.textContent = t.experience.systemAdmin.company;
+                    if (date) date.textContent = t.experience.systemAdmin.period;
+                    
+                    t.experience.systemAdmin.description.forEach((desc, index) => {
+                        if (listItems[index]) {
+                            listItems[index].textContent = desc;
+                        }
+                    });
+                }
+                
+                // System Administrator Intern
+                if (timelineItems[3]) {
+                    const title = timelineItems[3].querySelector('.timeline-title');
+                    const company = timelineItems[3].querySelector('.timeline-company');
+                    const date = timelineItems[3].querySelector('.timeline-date');
+                    const listItems = timelineItems[3].querySelectorAll('li');
+                    
+                    if (title) title.textContent = t.experience.systemAdminIntern.title;
+                    if (company) company.textContent = t.experience.systemAdminIntern.company;
+                    if (date) date.textContent = t.experience.systemAdminIntern.period;
+                    
+                    t.experience.systemAdminIntern.description.forEach((desc, index) => {
+                        if (listItems[index]) {
+                            listItems[index].textContent = desc;
+                        }
+                    });
+                }
+            }
+
+            // Projects section: keep user-provided content as-is; skip auto-translation updates
+
+            // Update skills section
+            const skillsSection = document.querySelector('#skills');
+            if (skillsSection && t.skills.fullStack) {
+                const skillCategories = skillsSection.querySelectorAll('.skill-category h3');
+                
+                if (skillCategories[0]) skillCategories[0].textContent = t.skills.fullStack;
+                if (skillCategories[1]) skillCategories[1].textContent = t.skills.databases;
+                if (skillCategories[2]) skillCategories[2].textContent = t.skills.devops;
+                if (skillCategories[3]) skillCategories[3].textContent = t.skills.cybersecurity;
+                if (skillCategories[4]) skillCategories[4].textContent = t.skills.softwareEngineering;
+                if (skillCategories[5]) skillCategories[5].textContent = t.skills.leadership;
+                if (skillCategories[6]) skillCategories[6].textContent = t.skills.aiAutomation;
+            }
+
+            // Update Soft Skills section
+            const softSkillsCard = document.querySelector('.card h3');
+            if (softSkillsCard && softSkillsCard.textContent.includes('Soft Skills') && t.skills.softSkills) {
+                softSkillsCard.textContent = t.skills.title;
+                
+                const skillTags = document.querySelectorAll('.skill-tags .tag');
+                t.skills.softSkills.forEach((skill, index) => {
+                    if (skillTags[index]) {
+                        skillTags[index].textContent = skill;
+                    }
+                });
+            }
+
+            // Update Languages section
+            const languagesCard = document.querySelector('.card h3');
+            if (languagesCard && languagesCard.textContent.includes('Languages') && t.skills.languageLevels) {
+                languagesCard.textContent = t.skills.languages;
+                
+                const languageLevels = document.querySelectorAll('.language-level');
+                const levelKeys = ['native', 'advanced', 'advanced', 'fluent'];
+                languageLevels.forEach((level, index) => {
+                    if (levelKeys[index]) {
+                        level.textContent = t.skills.languageLevels[levelKeys[index]];
+                    }
+                });
+            }
+
+            // Update Footer section
+            const footer = document.querySelector('footer');
+            if (footer && t.footer) {
+                const footerLinks = footer.querySelectorAll('.footer-links a');
+                const linkKeys = ['home', 'about', 'experience', 'projects', 'skills', 'contact'];
+                footerLinks.forEach((link, index) => {
+                    if (linkKeys[index]) {
+                        link.textContent = t.footer.links[linkKeys[index]];
+                    }
+                });
+                
+                const copyright = footer.querySelector('p');
+                if (copyright) {
+                    copyright.textContent = t.footer.copyright;
+                }
+            }
+
+            // Update contact form
+            const contactForm = document.querySelector('.contact-form-section');
+            if (contactForm) {
+                const formTitle = contactForm.querySelector('h3');
+                if (formTitle) formTitle.textContent = t.contact.sendMessage;
+                
+                const labels = contactForm.querySelectorAll('label');
+                const labelKeys = ['name', 'email', 'message'];
+                labels.forEach((label, index) => {
+                    if (labelKeys[index]) {
+                        label.textContent = t.contact[labelKeys[index]];
+                    }
+                });
+                
+                const submitBtn = contactForm.querySelector('.form-submit-btn');
+                if (submitBtn) submitBtn.textContent = t.contact.send;
+            }
+        }
+
+        // Load saved language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLanguage = localStorage.getItem('language') || 'en';
+            changeLanguage(savedLanguage);
+            // Initialize theme from saved preference
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            if (savedTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                if (themeIcon) themeIcon.className = 'fas fa-sun';
+            } else {
+                body.removeAttribute('data-theme');
+                if (themeIcon) themeIcon.className = 'fas fa-moon';
+            }
+        });
+
+        // Enhanced scroll effects
+        window.addEventListener('scroll', function() {
+            const scrollToTop = document.getElementById('scrollToTop');
+            const nav = document.querySelector('nav');
+            
+            // Scroll to top button visibility
+            if (window.pageYOffset > 300) {
+                scrollToTop.classList.add('visible');
+            } else {
+                scrollToTop.classList.remove('visible');
+            }
+            
+            // Navigation scroll effect
+            if (window.pageYOffset > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Form submission handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            const formMessage = document.getElementById('formMessage');
+            
+            // Get form values
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            // Store in memory (since localStorage is not supported)
+            const submission = {
+                name: name,
+                email: email,
+                message: message,
+                timestamp: new Date().toISOString()
+            };
+            
+            console.log('Form submission:', submission);
+            
+            // Show success message
+            formMessage.textContent = 'Thank you for your message! I will get back to you soon.';
+            formMessage.className = 'form-message success';
+            formMessage.style.display = 'block';
+            
+            // Reset form
+            form.reset();
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Enhanced intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections and cards with staggered animation
+        document.querySelectorAll('section').forEach((section, index) => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.animationDelay = `${index * 0.1}s`;
+            observer.observe(section);
+        });
+
+        // Observe cards and timeline items with enhanced animations
+        document.querySelectorAll('.card, .timeline-item, .project-card, .skill-category, .cert-card, .stat-card').forEach((element, index) => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.animationDelay = `${index * 0.05}s`;
+            observer.observe(element);
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
 </html>
