@@ -270,6 +270,28 @@
             margin-top: 0.5rem;
         }
 
+        .language-current {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .language-current-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .language-current-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
         .language-dropdown.active {
             opacity: 1;
             visibility: visible;
@@ -1326,64 +1348,243 @@
         }
 
         /* Certifications */
-.cert-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
-}
+        #certificates {
+            padding: 6rem 5%;
+        }
 
-.cert-card {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: 15px;
-    border: 1px solid var(--border);
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    cursor: pointer;
-}
+        #certificates .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
 
-.cert-card:hover {
-    transform: translateX(10px);
-    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
-}
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2.5rem;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1200px;
+        }
 
+        .cert-card {
+            position: relative;
+            background: var(--card-bg);
+            padding: 2.5rem 2.5rem 2.2rem;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-shadow: 0 30px 60px rgba(9, 105, 218, 0.08);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
 
-.cert-card i {
-    font-size: 3rem;
-    color: var(--primary);
-    min-width: 60px;
-}
+        .cert-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(9, 105, 218, 0.08), rgba(31, 136, 61, 0.08));
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
 
-.cert-info {
-    flex: 1;
-}
+        .cert-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 35px 70px rgba(9, 105, 218, 0.12);
+            border-color: var(--primary);
+        }
 
-.cert-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
+        .cert-card:hover::after {
+            opacity: 1;
+        }
 
-.cert-provider {
-    color: var(--primary);
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
-}
+        .cert-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
 
-.cert-date {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
+        .cert-badge {
+            align-self: flex-end;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 999px;
+            background: var(--gradient-primary);
+            color: #ffffff;
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+            text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(9, 105, 218, 0.25);
+        }
 
-.cert-link-icon {
-    font-size: 1.5rem;
-    color: var(--text-muted);
-    transition: all 0.3s;
-}
+        .cert-badge i {
+            font-size: 0.85rem;
+        }
+
+        .cert-header-main {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .cert-logo {
+            width: 68px;
+            height: 68px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: var(--primary);
+            background: rgba(9, 105, 218, 0.12);
+            box-shadow: inset 0 0 0 1px rgba(9, 105, 218, 0.15);
+            flex-shrink: 0;
+        }
+
+        .cert-logo.google {
+            color: #ea4335;
+            background: rgba(234, 67, 53, 0.12);
+            box-shadow: inset 0 0 0 1px rgba(234, 67, 53, 0.15);
+        }
+
+        .cert-logo.ibm {
+            color: #0f62fe;
+            background: rgba(15, 98, 254, 0.12);
+            box-shadow: inset 0 0 0 1px rgba(15, 98, 254, 0.15);
+        }
+
+        .cert-logo.meta {
+            color: #0081fb;
+            background: rgba(0, 129, 251, 0.12);
+            box-shadow: inset 0 0 0 1px rgba(0, 129, 251, 0.15);
+        }
+
+        .cert-logo.security {
+            color: #3fb950;
+            background: rgba(63, 185, 80, 0.12);
+            box-shadow: inset 0 0 0 1px rgba(63, 185, 80, 0.15);
+        }
+
+        .cert-logo-text {
+            font-weight: 800;
+            font-size: 1.6rem;
+            letter-spacing: 0.1em;
+        }
+
+        .cert-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .cert-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .cert-provider {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .cert-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .cert-actions {
+            margin-top: auto;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .cert-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.5rem;
+            border-radius: 12px;
+            background: var(--gradient-primary);
+            color: #ffffff;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 12px 30px rgba(9, 105, 218, 0.3);
+        }
+
+        .cert-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 45px rgba(9, 105, 218, 0.35);
+        }
+
+        .cert-btn i {
+            font-size: 1rem;
+        }
+
+        .cert-btn-label {
+            white-space: nowrap;
+        }
+
+        @media (max-width: 992px) {
+            .cert-grid {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #certificates {
+                padding: 4.5rem 1.5rem;
+            }
+
+            .cert-card {
+                padding: 2.2rem 1.8rem 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cert-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        .cert-header-main {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .cert-badge {
+            align-self: flex-start;
+        }
+
+        .cert-logo {
+            width: 60px;
+            height: 60px;
+        }
+
+        .cert-info {
+            width: 100%;
+        }
+            .cert-logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
 
 .cert-card:hover .cert-link-icon {
     color: var(--primary);
@@ -1890,9 +2091,8 @@
                 <li><a href="#home" onclick="scrollToSection('home')">Home</a></li>
                 <li><a href="#about" onclick="scrollToSection('about')">About</a></li>
                 <li><a href="#experience" onclick="scrollToSection('experience')">Experience</a></li>
+                <li><a href="#certificates" onclick="scrollToSection('certificates')">Certificates</a></li>
                 <li><a href="#projects" onclick="scrollToSection('projects')">Projects</a></li>
-                <li><a href="#skills" onclick="scrollToSection('skills')">Skills</a></li>
-                
                 <li><a href="#contact" onclick="scrollToSection('contact')">Contact</a></li>
             </ul>
             <div class="language-switcher">
@@ -1900,6 +2100,10 @@
                     <span id="current-lang">EN</span>
                 </button>
                 <div class="language-dropdown" id="languageDropdown">
+                    <div class="language-current">
+                        <span class="language-current-label" id="languageCurrentLabel">Current Language</span>
+                        <span class="language-current-name" id="languageCurrentName">English</span>
+                    </div>
 
                     <div class="language-option" onclick="changeLanguage('en')" data-lang="en">
                         <div class="language-flag">
@@ -2184,6 +2388,113 @@
         </div>
     </section>
 
+    <!-- Certificates Section Start -->
+    <section id="certificates">
+        <h2 class="section-title">Certificates</h2>
+        <div class="cert-grid">
+            <article class="cert-card" data-cert-key="googleProjectManagement">
+                <div class="cert-header">
+                    <span class="cert-badge">
+                        <i class="fas fa-award"></i>
+                        <span class="cert-badge-label">Professional Certificate</span>
+                    </span>
+                    <div class="cert-header-main">
+                        <div class="cert-logo google">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="cert-info">
+                        <h3 class="cert-title">Google Project Management</h3>
+                        <p class="cert-provider">Google</p>
+                    </div>
+                </div>
+                </div>
+                <p class="cert-description">Professional certification demonstrating advanced project management skills.</p>
+                <div class="cert-actions">
+                    <a href="./Google Project Management.pdf" class="cert-btn" target="_blank" rel="noopener noreferrer" data-cert-action aria-label="View Google Project Management certificate">
+                        <span class="cert-btn-label">View Certificate</span>
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="cert-card" data-cert-key="ibmFullStack">
+                <div class="cert-header">
+                    <span class="cert-badge">
+                        <i class="fas fa-award"></i>
+                        <span class="cert-badge-label">Professional Certificate</span>
+                    </span>
+                    <div class="cert-header-main">
+                        <div class="cert-logo ibm">
+                            <span class="cert-logo-text">IBM</span>
+                        </div>
+                    <div class="cert-info">
+                        <h3 class="cert-title">IBM Full Stack Software Developer</h3>
+                        <p class="cert-provider">IBM</p>
+                    </div>
+                </div>
+                </div>
+                <p class="cert-description">Comprehensive program covering full stack web development.</p>
+                <div class="cert-actions">
+                    <a href="./IBM Full Stack Software Developer.pdf" class="cert-btn" target="_blank" rel="noopener noreferrer" data-cert-action aria-label="View IBM Full Stack Software Developer certificate">
+                        <span class="cert-btn-label">View Certificate</span>
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="cert-card" data-cert-key="metaFrontEnd">
+                <div class="cert-header">
+                    <span class="cert-badge">
+                        <i class="fas fa-award"></i>
+                        <span class="cert-badge-label">Professional Certificate</span>
+                    </span>
+                    <div class="cert-header-main">
+                        <div class="cert-logo meta">
+                        <i class="fab fa-meta"></i>
+                    </div>
+                    <div class="cert-info">
+                        <h3 class="cert-title">Meta Front End Developer</h3>
+                        <p class="cert-provider">Meta</p>
+                    </div>
+                </div>
+                </div>
+                <p class="cert-description">Front-end specialization focused on modern frameworks and responsive design.</p>
+                <div class="cert-actions">
+                    <a href="./Meta Front End Developer.pdf" class="cert-btn" target="_blank" rel="noopener noreferrer" data-cert-action aria-label="View Meta Front End Developer certificate">
+                        <span class="cert-btn-label">View Certificate</span>
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="cert-card" data-cert-key="googleCybersecurity">
+                <div class="cert-header">
+                    <span class="cert-badge">
+                        <i class="fas fa-award"></i>
+                        <span class="cert-badge-label">Professional Certificate</span>
+                    </span>
+                    <div class="cert-header-main">
+                        <div class="cert-logo security">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <div class="cert-info">
+                        <h3 class="cert-title">Google Cybersecurity</h3>
+                        <p class="cert-provider">Google · Mulkomon Baydjayev</p>
+                    </div>
+                </div>
+                </div>
+                <p class="cert-description">Cybersecurity fundamentals including network defense and threat analysis.</p>
+                <div class="cert-actions">
+                    <a href="./Mulkomon Baydjayev - Google Cybersecurity.pdf" class="cert-btn" target="_blank" rel="noopener noreferrer" data-cert-action aria-label="View Google Cybersecurity certificate">
+                        <span class="cert-btn-label">View Certificate</span>
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+    <!-- Certificates Section End -->
+
 <section id="projects">
     <h2 class="section-title">Projects</h2>
 
@@ -2378,7 +2689,6 @@
     </div>
 </section>
 
-
 <!-- Skills Section -->
 
 <!-- Contact Section -->
@@ -2471,7 +2781,6 @@
             <a href="#about" onclick="scrollToSection('about')">About</a>
             <a href="#experience" onclick="scrollToSection('experience')">Experience</a>
             <a href="#projects" onclick="scrollToSection('projects')">Projects</a>
-            <a href="#skills" onclick="scrollToSection('skills')">Skills</a>
             
             <a href="#contact" onclick="scrollToSection('contact')">Contact</a>
         </div>
@@ -2523,6 +2832,7 @@
         // Language switcher functionality
         function toggleLanguageDropdown() {
             const dropdown = document.getElementById('languageDropdown');
+            refreshLanguageDropdown(currentLanguage);
             dropdown.classList.toggle('active');
         }
 
@@ -2539,7 +2849,7 @@
         // Language content translations
         const translations = {
             tk: {
-                nav: { home: 'Baş sahypa', about: 'Barada', experience: 'Iş tejribesi', projects: 'Taslamalar',  contact: 'Habarlaşmak' },
+                nav: { home: 'Baş sahypa', about: 'Barada', experience: 'Iş tejribesi', certificates: 'Şahadatnamalar', projects: 'Taslamalar',  contact: 'Habarlaşmak' },
                 hero: {
                     name: 'Baydjayev Mulkomon',
                     subtitle: 'Backend Developer & Telegram Bot Specialist',
@@ -2691,6 +3001,25 @@
                         viewCode: 'Kody gör'
                     }
                 },
+                certificates: {
+                    title: 'Sertifikatlar',
+                    badge: 'Professional şahadatnama',
+                    button: 'Görmek',
+                    items: {
+                        googleProjectManagement: {
+                            description: 'Taslamalary dolandyrmak boýunça öňdebaryjy başarnyklary tassyklaýan professional sertifikat.'
+                        },
+                        ibmFullStack: {
+                            description: 'Doly stack web ösüşi boýunça giňişleýin okuw maksatnamasy.'
+                        },
+                        metaFrontEnd: {
+                            description: 'Döwrebap front-end freýmworkleri we uýgunlaşýan dizaýny öz içine alýan ýöriteleşme.'
+                        },
+                        googleCybersecurity: {
+                            description: 'Kiberhowpsuzlygyň esaslary, tor goragy we howp seljermesini öz içine alýar.'
+                        }
+                    }
+                },
                 skills: {
                     title: 'Meni bilen habarlaş',
                     fullStack: 'Doly funksiýaly programmirleme',
@@ -2715,6 +3044,7 @@
                     home: 'Home',
                     about: 'About',
                     experience: 'Experience',
+                    certificates: 'Certificates',
                     projects: 'Projects',
                     contact: 'Contact'
                 },
@@ -2874,6 +3204,25 @@
                         viewCode: 'View Code'
                     }
                 },
+                certificates: {
+                    title: 'Certificates',
+                    badge: 'Professional Certificate',
+                    button: 'View Certificate',
+                    items: {
+                        googleProjectManagement: {
+                            description: 'Professional certification demonstrating advanced project management skills.'
+                        },
+                        ibmFullStack: {
+                            description: 'Comprehensive program covering full stack web development.'
+                        },
+                        metaFrontEnd: {
+                            description: 'Front-end specialization focused on modern frameworks and responsive design.'
+                        },
+                        googleCybersecurity: {
+                            description: 'Cybersecurity fundamentals including network defense and threat analysis.'
+                        }
+                    }
+                },
                 skills: {
                     title: 'Contact Me',
                     fullStack: 'Full Stack Development',
@@ -2898,6 +3247,7 @@
                     home: 'Bosh sahifa',
                     about: 'Men haqimda',
                     experience: 'Ish tajribasi',
+                    certificates: 'Sertifikatlar',
                     projects: 'Loyihalar',
                     contact: 'Aloqa'
                 },
@@ -3058,6 +3408,25 @@
                         viewCode: 'Kodni ko\'rish'
                     }
                 },
+                certificates: {
+                    title: 'Sertifikatlar',
+                    badge: 'Professional sertifikat',
+                    button: 'Ko\'rish',
+                    items: {
+                        googleProjectManagement: {
+                            description: 'Loyihalarni boshqarish bo\'yicha ilg\'or ko\'nikmalarni tasdiqlovchi sertifikat.'
+                        },
+                        ibmFullStack: {
+                            description: 'To\'liq stack web dasturlash bo\'yicha chuqur bilimlarni o\'z ichiga olgan dastur.'
+                        },
+                        metaFrontEnd: {
+                            description: 'Zamonaviy front-end frameworklar va responsive dizayn bo\'yicha mutaxassislik.'
+                        },
+                        googleCybersecurity: {
+                            description: 'Tarmoq himoyasi va tahdid tahlilini o\'z ichiga olgan kiberxavfsizlik asoslari.'
+                        }
+                    }
+                },
                 skills: {
                     title: 'Men bilan bog\'lanish',
                     fullStack: 'To\'liq funksional dasturlash',
@@ -3082,6 +3451,7 @@
                     home: 'Ana Sayfa',
                     about: 'Hakkımda',
                     experience: 'İş Deneyimi',
+                    certificates: 'Sertifikalar',
                     projects: 'Projeler',
                     contact: 'İletişim'
                 },
@@ -3241,6 +3611,25 @@
                         viewCode: 'Kodu Görüntüle'
                     }
                 },
+                certificates: {
+                    title: 'Sertifikalar',
+                    badge: 'Profesyonel sertifika',
+                    button: 'Görüntüle',
+                    items: {
+                        googleProjectManagement: {
+                            description: 'İleri düzey proje yönetimi becerilerini gösteren profesyonel sertifika.'
+                        },
+                        ibmFullStack: {
+                            description: 'Tam yığın web geliştirmeyi kapsayan kapsamlı program.'
+                        },
+                        metaFrontEnd: {
+                            description: 'Modern frameworkler ve duyarlı tasarıma odaklanan ön uç uzmanlığı.'
+                        },
+                        googleCybersecurity: {
+                            description: 'Ağ savunması ve tehdit analizi dahil siber güvenlik temelleri.'
+                        }
+                    }
+                },
                 skills: {
                     title: 'Benimle İletişime Geç',
                     fullStack: 'Tam Yığın Geliştirme',
@@ -3265,6 +3654,7 @@
                     home: 'Главная',
                     about: 'Обо мне',
                     experience: 'Опыт работы',
+                    certificates: 'Сертификаты',
                     projects: 'Проекты',
                     contact: 'Контакты'
                 },
@@ -3424,6 +3814,25 @@
                         viewCode: 'Посмотреть код'
                     }
                 },
+                certificates: {
+                    title: 'Сертификаты',
+                    badge: 'Профессиональный сертификат',
+                    button: 'Посмотреть',
+                    items: {
+                        googleProjectManagement: {
+                            description: 'Профессиональный сертификат, подтверждающий навыки управления проектами.'
+                        },
+                        ibmFullStack: {
+                            description: 'Комплексная программа по разработке полного стека.'
+                        },
+                        metaFrontEnd: {
+                            description: 'Специализация по фронтенду и современным фреймворкам.'
+                        },
+                        googleCybersecurity: {
+                            description: 'Основы кибербезопасности, включая защиту сети и анализ угроз.'
+                        }
+                    }
+                },
                 skills: {
                     title: 'Связаться со мной',
                     fullStack: 'Полнофункциональная разработка',
@@ -3446,7 +3855,42 @@
             }
         };
 
+        const languageMetadata = {
+            en: { short: 'EN', name: 'English', label: 'Current Language' },
+            ru: { short: 'RU', name: 'Русский', label: 'Текущий язык' },
+            tk: { short: 'TK', name: 'Türkmen', label: 'Häzirki dil' },
+            uz: { short: 'UZ', name: "O'zbek", label: 'Joriy til' },
+            tr: { short: 'TR', name: 'Türkçe', label: 'Mevcut dil' }
+        };
+
         let currentLanguage = 'en';
+
+        function refreshLanguageDropdown(activeLang) {
+            const dropdown = document.getElementById('languageDropdown');
+            if (!dropdown) return;
+
+            const options = Array.from(dropdown.querySelectorAll('.language-option'));
+            const visibleOptions = [];
+
+            options.forEach(option => {
+                const optionLang = option.getAttribute('data-lang');
+                const isActive = optionLang === activeLang;
+                option.classList.remove('active');
+                if (isActive) {
+                    option.style.display = 'none';
+                    option.style.borderBottom = '';
+                } else {
+                    option.style.display = 'flex';
+                    option.style.borderBottom = '1px solid var(--border)';
+                    visibleOptions.push(option);
+                }
+            });
+
+            visibleOptions.forEach(option => option.style.borderBottom = '1px solid var(--border)');
+            if (visibleOptions.length > 0) {
+                visibleOptions[visibleOptions.length - 1].style.borderBottom = 'none';
+            }
+        }
 
         function changeLanguage(lang) {
             try {
@@ -3455,21 +3899,19 @@
                 // Set language attribute on HTML element
                 document.documentElement.lang = lang;
                 // Update current language indicator
-                if (currentLangSpan) {
-                    switch(lang) {
-                        case 'tk': currentLangSpan.textContent = 'TK'; break;
-                        case 'en': currentLangSpan.textContent = 'EN'; break;
-                        case 'uz': currentLangSpan.textContent = 'UZ'; break;
-                        case 'tr': currentLangSpan.textContent = 'TR'; break;
-                        case 'ru': currentLangSpan.textContent = 'RU'; break;
-                    }
+                if (currentLangSpan && languageMetadata[lang]) {
+                    currentLangSpan.textContent = languageMetadata[lang].short;
                 }
-                // Update active language option
-                document.querySelectorAll('.language-option').forEach(option => {
-                    option.classList.remove('active');
-                });
-                const activeOption = document.querySelector(`[data-lang="${lang}"]`);
-                if (activeOption) activeOption.classList.add('active');
+                const currentLangNameEl = document.getElementById('languageCurrentName');
+                if (currentLangNameEl && languageMetadata[lang]) {
+                    currentLangNameEl.textContent = languageMetadata[lang].name;
+                }
+                const currentLangLabelEl = document.getElementById('languageCurrentLabel');
+                if (currentLangLabelEl && languageMetadata[lang]) {
+                    currentLangLabelEl.textContent = languageMetadata[lang].label;
+                }
+                // Update dropdown to hide active language
+                refreshLanguageDropdown(lang);
                 // Update page content
                 updatePageContent(lang);
                 // Close dropdown
@@ -3487,7 +3929,7 @@
             
             // Update navigation
             document.querySelectorAll('.nav-menu a').forEach((link, index) => {
-                const keys = ['home', 'about', 'experience', 'projects', 'skills', 'contact'];
+                const keys = ['home', 'about', 'experience', 'certificates', 'projects', 'contact'];
                 if (keys[index]) {
                     link.textContent = t.nav[keys[index]];
                 }
@@ -3516,10 +3958,17 @@
             }
 
             // Update section titles
-            document.querySelectorAll('.section-title').forEach((title, index) => {
-                const keys = ['about', 'experience', 'projects', 'skills', 'contact'];
-                if (keys[index]) {
-                    title.textContent = t[keys[index]].title;
+            const sectionTitleMap = [
+                { selector: '#about .section-title', key: 'about' },
+                { selector: '#experience .section-title', key: 'experience' },
+                { selector: '#projects .section-title', key: 'projects' },
+                { selector: '#certificates .section-title', key: 'certificates' },
+                { selector: '#contact .section-title', key: 'contact' }
+            ];
+            sectionTitleMap.forEach(({ selector, key }) => {
+                const element = document.querySelector(selector);
+                if (element && t[key] && t[key].title) {
+                    element.textContent = t[key].title;
                 }
             });
 
@@ -3761,6 +4210,42 @@
                     if (description) description.textContent = t.projects.contact.description;
                     if (viewLink) viewLink.innerHTML = `<i class="fab fa-github"></i> ${t.projects.contact.viewCode}`;
                 }
+            }
+
+            // Update certificates section
+            const certificatesSection = document.querySelector('#certificates');
+            if (certificatesSection && t.certificates && t.certificates.items) {
+                const badgeLabels = certificatesSection.querySelectorAll('.cert-badge-label');
+                badgeLabels.forEach(label => {
+                    if (t.certificates.badge) {
+                        label.textContent = t.certificates.badge;
+                    }
+                });
+
+                const actionLinks = certificatesSection.querySelectorAll('[data-cert-action]');
+                actionLinks.forEach(link => {
+                    if (t.certificates.button) {
+                        const labelSpan = link.querySelector('.cert-btn-label');
+                        if (labelSpan) {
+                            labelSpan.textContent = t.certificates.button;
+                        }
+                        const card = link.closest('.cert-card');
+                        const titleEl = card ? card.querySelector('.cert-title') : null;
+                        const titleText = titleEl ? titleEl.textContent : '';
+                        link.setAttribute('aria-label', `${t.certificates.button}${titleText ? ` - ${titleText}` : ''}`);
+                    }
+                });
+
+                const certificateCards = certificatesSection.querySelectorAll('.cert-card');
+                certificateCards.forEach(card => {
+                    const key = card.getAttribute('data-cert-key');
+                    if (key && t.certificates.items[key]) {
+                        const description = card.querySelector('.cert-description');
+                        if (description) {
+                            description.textContent = t.certificates.items[key].description;
+                        }
+                    }
+                });
             }
 
             // Update skills section
