@@ -1705,10 +1705,8 @@
 
         /* Contact Icons - Original Brand Colors */
         .contact-card a[href*="linkedin"] i,
-        .contact-card a[href*="github"] i,
         .contact-card a[href*="mailto"] i,
-        .contact-card a[href*="tel"] i,
-        .contact-card a[href*="telegram"] i {
+        .contact-card a[href*="tel"] i {
             color: var(--primary);
         }
 
@@ -1719,15 +1717,6 @@
 
         .contact-card a[href*="linkedin"]:hover i {
             color: #005885;
-        }
-
-        /* GitHub - Original Black */
-        .contact-card a[href*="github"] i {
-            color: #000000;
-        }
-
-        .contact-card a[href*="github"]:hover i {
-            color: #333333;
         }
 
         /* Email - Gmail Red */
@@ -1748,13 +1737,43 @@
             color: #1da851;
         }
 
-        /* Telegram - Original Blue */
-        .contact-card a[href*="telegram"] i {
+        /* Social Icon Theme Adjustments */
+        .github-icon,
+        .telegram-icon {
+            transition: color 0.3s ease;
+        }
+
+        .github-icon {
+            color: #000000;
+        }
+
+        [data-theme="dark"] .github-icon {
+            color: #f5f5f5;
+        }
+
+        .contact-card:hover .github-icon {
+            color: #333333;
+        }
+
+        [data-theme="dark"] .contact-card:hover .github-icon {
+            color: #f5f5f5;
+        }
+
+        .footer-social a[href*="github"]:hover .github-icon {
+            color: #ffffff;
+        }
+
+        .footer-social .telegram-icon,
+        .contact-card .telegram-icon {
             color: #229ED9;
         }
 
-        .contact-card a[href*="telegram"]:hover i {
-            color: #1e8bc4;
+        .footer-social a[href*="telegram"]:hover .telegram-icon {
+            color: #ffffff;
+        }
+
+        .contact-card:hover .telegram-icon {
+            color: #0088cc;
         }
 
         .contact-card h4 {
@@ -1909,6 +1928,10 @@
             color: #000000;
         }
 
+        [data-theme="dark"] .footer-social a[href*="github"] {
+            color: #f5f5f5;
+        }
+
         .footer-social a[href*="github"]:hover {
             background: #000000;
             color: white;
@@ -1944,14 +1967,56 @@
             color: white;
         }
 
-        /* Telegram - Original Blue */
+        /* Telegram - Official Blue */
         .footer-social a[href*="telegram"] {
             color: #229ED9;
+        }
+
+        .footer-social a[href*="telegram"] i {
+            color: inherit;
+            transition: color 0.3s ease;
         }
 
         .footer-social a[href*="telegram"]:hover {
             background: #229ED9;
             color: white;
+        }
+
+        /* Footer social hover refinements */
+        footer .footer-social a:nth-child(1) .telegram-icon,
+        footer .footer-social a:nth-child(2) .github-icon {
+            color: inherit !important;
+            transition: color 0.3s ease;
+        }
+
+        footer .footer-social a:nth-child(1):hover {
+            color: #0088cc !important;
+            background-color: rgba(0, 136, 204, 0.12) !important;
+            box-shadow: 0 10px 25px rgba(0, 136, 204, 0.3);
+        }
+
+        footer .footer-social a:nth-child(1):hover .telegram-icon {
+            color: #0088cc !important;
+        }
+
+        footer .footer-social a:nth-child(2):hover {
+            color: #24292e !important;
+            background-color: rgba(36, 41, 46, 0.12) !important;
+            box-shadow: 0 10px 25px rgba(36, 41, 46, 0.3);
+        }
+
+        [data-theme="dark"] footer .footer-social a:nth-child(2):hover {
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.12) !important;
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        footer .footer-social a:nth-child(2):hover .github-icon {
+            color: inherit !important;
+        }
+
+        .footer-social a[href*="telegram"]:hover i {
+            color: #ffffff;
         }
 
         .footer-links {
@@ -2699,7 +2764,7 @@
         <!-- Contact Info - Left Side -->
         <div class="contact-info">
             <a href="https://t.me/baydjayev" target="_blank" class="contact-card" style="text-decoration: none; color: inherit;">
-                <i class="fab fa-telegram"></i>
+                <i class="fab fa-telegram telegram-icon"></i>
                 <div>
                     <h4>Telegram</h4>
                     <span style="color: var(--primary);">@baydjayev</span>
@@ -2707,7 +2772,7 @@
             </a>
             
             <a href="https://github.com/Baydjayev" target="_blank" class="contact-card" style="text-decoration: none; color: inherit;">
-                <i class="fab fa-github"></i>
+                <i class="fab fa-github github-icon"></i>
                 <div>
                     <h4>GitHub</h4>
                     <span style="color: var(--primary);">Baydjayev</span>
@@ -2762,10 +2827,10 @@
     <footer>
         <div class="footer-social">
             <a href="https://t.me/baydjayev" target="_blank" title="Telegram">
-                <i class="fab fa-telegram"></i>
+                <i class="fab fa-telegram telegram-icon"></i>
             </a>
             <a href="https://github.com/Baydjayev" target="_blank" title="GitHub">
-                <i class="fab fa-github"></i>
+                <i class="fab fa-github github-icon"></i>
             </a>
             <a href="mailto:itmulkomon@gmail.com" title="Email">
                 <i class="fas fa-envelope"></i>
